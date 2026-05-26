@@ -1,0 +1,98 @@
+===================================================================
+             FABRIC — DEMO CLOUD CONFIGURATION DATABASE
+===================================================================
+
+Este archivo contiene las claves ID demo y sus características técnicas
+y de costos para utilizar en la sección de "Comparar con ID" dentro de
+nuestro Cloud Cost Comparator.
+
+Copia cualquiera de estos IDs y colócalo en el comparador de la web
+para obtener un desglose detallado de costos y diferencias técnicas.
+
+-------------------------------------------------------------------
+1. CORE ERP FINANCIERO (OCI)
+-------------------------------------------------------------------
+ID de Búsqueda: OCI-FIN-993
+Proveedor: Oracle Cloud Infrastructure (OCI)
+Nombre: Financial Core ERP workload (Large-scale)
+
+Costos Mensuales (USD):
+  · Compute (Instancias virtuales y Bare Metal): $25,000
+  · Storage (Block volumes SSD, Backups): $12,000
+  · Database PaaS (Oracle Database Service Exadata/RAC): $35,000
+  · Egress (Tránsito de datos saliente): $1,000
+  · Costo Mensual Total: $73,000
+
+Características Técnicas:
+  · Exadata Cloud Service nativo habilitado.
+  · Soporte de base de datos Oracle RAC (Active-Active clustering).
+  · Conectividad FastConnect dedicada.
+  · Latencias de base de datos ultra bajas (< 1ms).
+  · 10 TB de transferencia saliente mensual incluida sin costo extra.
+
+-------------------------------------------------------------------
+2. PORTAL DE RETAIL E-COMMERCE (AWS)
+-------------------------------------------------------------------
+ID de Búsqueda: AWS-RTL-442
+Proveedor: Amazon Web Services (AWS)
+Nombre: E-Commerce Retail Platform (Medium-High traffic)
+
+Costos Mensuales (USD):
+  · Compute (AWS EC2 instances): $30,000
+  · Storage (EBS gp3 volumes y S3 storage): $18,000
+  · Database PaaS (Amazon Aurora PostgreSQL Multi-AZ): $25,000
+  · Egress (AWS Data Transfer Out to Internet): $15,000
+  · Costo Mensual Total: $88,000
+
+Características Técnicas:
+  · Autoscaling EC2 detrás de Application Load Balancer.
+  · Amazon Aurora Serverless v2 con réplicas de lectura.
+  · Alta dependencia de AWS CloudFront CDN.
+  · Egress excesivo debido a descargas de assets de imágenes y APIs.
+  · Alta disponibilidad multi-zona (Multi-AZ).
+
+-------------------------------------------------------------------
+3. SISTEMA DE SALUD E HISTORIAL CLÍNICO (AZURE)
+-------------------------------------------------------------------
+ID de Búsqueda: AZR-HLT-105
+Proveedor: Microsoft Azure
+Nombre: Healthcare Portal & EMR System (High storage/compliance)
+
+Costos Mensuales (USD):
+  · Compute (Azure Virtual Machines): $18,000
+  · Storage (Azure Blob Storage Cool/Archive, Disk Storage): $22,000
+  · Database PaaS (Azure SQL Managed Instance): $20,000
+  · Egress (Azure Bandwidth Outbound): $8,000
+  · Costo Mensual Total: $68,000
+
+Características Técnicas:
+  · Despliegue en zona de cumplimiento estricto (HIPAA/HITRUST).
+  · Alto volumen de imágenes médicas (PACS) almacenadas en Blob Storage.
+  · Base de datos SQL Managed Instance de misión crítica.
+  · Conexión ExpressRoute de respaldo a data centers locales.
+  · Replicación geo-redundante para desastres (GRS).
+
+-------------------------------------------------------------------
+4. FRAMEWORK DE ANALÍTICA Y BIG DATA (GCP)
+-------------------------------------------------------------------
+ID de Búsqueda: GCP-DAT-881
+Proveedor: Google Cloud Platform (GCP)
+Nombre: Real-time Analytics & Big Data Workload
+
+Costos Mensuales (USD):
+  · Compute (Google Kubernetes Engine - GKE): $40,000
+  · Storage (Google Cloud Storage standard tier): $35,000
+  · Database PaaS (Google Cloud Spanner & BigQuery): $15,000
+  · Egress (GCP Network Egress): $25,000
+  · Costo Mensual Total: $115,000
+
+Características Técnicas:
+  · Cientos de nodos de Kubernetes auto-escalables en GKE.
+  · BigQuery para consultas masivas de datos semi-estructurados.
+  · Transmisión continua (Ingest) con Cloud Pub/Sub.
+  · Enorme tráfico de red de salida (Egress) para reportes y APIs externas.
+  · Procesamiento distribuido masivo de logs y telemetría.
+
+===================================================================
+           FABRIC — OPTIMIZACIÓN DE COSTES CLOUD 2026
+===================================================================
