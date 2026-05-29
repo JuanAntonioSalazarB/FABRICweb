@@ -236,7 +236,7 @@ export default function DoctrineGenerator() {
   const clauses = step === 7 ? getGeneratedClauses() : null;
 
   return (
-    <section className="py-20 border-b border-[rgba(201,169,110,0.15)] bg-zinc-950 font-mono text-xs">
+    <section id="generator-idea" className="py-20 border-b border-[rgba(201,169,110,0.15)] bg-zinc-950 font-mono text-xs">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
 
         {/* Header */}

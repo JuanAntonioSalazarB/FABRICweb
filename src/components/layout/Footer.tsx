@@ -4,42 +4,40 @@ import Link from "next/link";
 
 const FOOTER_COLS = [
   {
-    title: "Sobre FABRIC",
+    title: "Metodología",
     links: [
-      { label: "Doctrina", href: "#doctrina" },
-      { label: "Doctrine Generator", href: "/doctrina/generator" },
-      { label: "FABRIC OS", href: "#fabric-os" },
+      { label: "Doctrina FABRIC", href: "#doctrina" },
+      { label: "FABRIC OS", href: "#fabricos" },
+      { label: "Ciclo de Vida", href: "#lifecycle" },
+      { label: "Idea Radical", href: "#generator-idea" },
       { label: "Industrias", href: "#industrias" },
-      { label: "Transparencia", href: "/transparencia" },
     ],
   },
   {
-    title: "Casos",
+    title: "Evidencia",
     links: [
-      { label: "APE Plazas", href: "#" },
-      { label: "Aplazo", href: "#" },
+      { label: "Casos de Éxito", href: "#casos" },
+      { label: "Expediente de Auditoría", href: "#audit-trail" },
+      { label: "Referencias", href: "#referencias" },
+      { label: "Transparencia", href: "#transparencia" },
+      { label: "Investigación", href: "#investigacion" },
     ],
   },
   {
-    title: "Herramientas",
+    title: "Herramientas AI",
     links: [
-      { label: "Diagnóstico de Proyecto", href: "#diagnostico" },
-      { label: "ERP TCO Comparator", href: "#comparator-erp" },
-      { label: "Cloud Cost Comparator", href: "#", soon: true },
-      { label: "Migration Roadmap", href: "#", soon: true },
-      { label: "Readiness Score", href: "#", soon: true },
-      { label: "RFP Template", href: "#", soon: true },
+      { label: "Comparadores de Costo", href: "#comparadores" },
+      { label: "Consultor de Riesgo IA", href: "#terminal" },
+      { label: "Insights Filtrados", href: "#doctrina-filtrado" },
     ],
   },
   {
-    title: "Engagement",
+    title: "Admisión",
     links: [
-      { label: "Aplicar / Wait List", href: "/aplicar" },
-      { label: "Office Hours", href: "/office-hours" },
-      { label: "Referencias de Clientes", href: "/referencias" },
-      { label: "Post-Mortem Privado", href: "#", soon: true },
-      { label: "Confidential Roundtable", href: "#", soon: true },
-      { label: "Criterios", href: "#" },
+      { label: "Solicitar Admisión", href: "#admision" },
+      { label: "Horas de Oficina", href: "#agenda" },
+      { label: "Registro de Rechazados", href: "#apply-reverse" },
+      { label: "Fundador", href: "#founder" },
     ],
   },
 ];
