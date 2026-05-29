@@ -415,7 +415,7 @@ export async function sendMeetEmailAction(bookingId: string, meetLink: string): 
       // Si el clientEmail no es el dueño, fallará a menos que se use un dominio verificado.
       await EmailService.send({
         from: 'FABRIC <onboarding@resend.dev>',
-        to: 'correo resend', //clientEmail, // Enviamos solo al cliente por ahora para evitar bloqueos de Resend sandbox
+        to: 'saalzarantonio@gmail.com', // Enviamos al correo del propietario de Resend por restricción de sandbox
         subject: 'Enlace de Google Meet · FABRIC',
         text: renderMeetEmailText(emailData),
         html: renderMeetEmail(emailData),

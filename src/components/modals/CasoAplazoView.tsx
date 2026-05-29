@@ -14,6 +14,7 @@ export default function CasoAplazoView() {
   const [wlRole, setWlRole] = useState('');
   const [wlError, setWlError] = useState('');
   const [wlSuccess, setWlSuccess] = useState(false);
+  const [wlLoading, setWlLoading] = useState(false);
 
   // Email validation helper
   const isCorporateEmail = (email: string) => {
@@ -36,19 +37,26 @@ export default function CasoAplazoView() {
       return;
     }
 
-    const res = await submitWaitlistAction({
-      name: wlName,
-      email: wlEmail,
-      company: wlCompany,
-      role: wlRole,
-      scenario: 'migration' // Escenario predefinido para el caso de uso Fintech / Estabilización
-    });
+    setWlLoading(true);
+    try {
+      const res = await submitWaitlistAction({
+        name: wlName,
+        email: wlEmail,
+        company: wlCompany,
+        role: wlRole,
+        scenario: 'migration' // Escenario predefinido para el caso de uso Fintech / Estabilización
+      });
 
-    if (res.success) {
-      setWlSuccess(true);
-      window.location.href = `/aplicar?wl-name=${encodeURIComponent(wlName)}&wl-company=${encodeURIComponent(wlCompany)}&wl-scenario=migration`;
-    } else {
+      if (res.success) {
+        setWlSuccess(true);
+        window.location.href = `/aplicar?wl-name=${encodeURIComponent(wlName)}&wl-company=${encodeURIComponent(wlCompany)}&wl-scenario=migration`;
+      } else {
+        setWlError('Error al enviar la solicitud. Intente de nuevo.');
+      }
+    } catch (err) {
       setWlError('Error al enviar la solicitud. Intente de nuevo.');
+    } finally {
+      setWlLoading(false);
     }
   };
 
@@ -202,9 +210,10 @@ export default function CasoAplazoView() {
 
                 <button 
                   type="submit" 
-                  className="w-full bg-black border border-accent text-white font-bold uppercase tracking-widest py-3 hover:bg-accent hover:text-black transition-all"
+                  disabled={wlLoading}
+                  className="w-full bg-black border border-accent text-white font-bold uppercase tracking-widest py-3 hover:bg-accent hover:text-black transition-all cursor-pointer disabled:opacity-50"
                 >
-                  Enviar Solicitud de Admisión
+                  {wlLoading ? 'Procesando...' : 'Enviar Solicitud de Admisión'}
                 </button>
               </form>
             )}

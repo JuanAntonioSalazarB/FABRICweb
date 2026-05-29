@@ -2,7 +2,7 @@ import React from 'react';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 
 interface AgendaCitaProps {
-  setActiveOverlayModal: (modal: 'erp' | 'cloud' | 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
+  setActiveOverlayModal: (modal: 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
 }
 
 export default function AgendaCita({ setActiveOverlayModal }: AgendaCitaProps) {

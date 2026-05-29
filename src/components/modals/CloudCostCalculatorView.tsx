@@ -169,8 +169,8 @@ export default function CloudCostCalculatorView() {
 
   return (
     <div className="space-y-8 font-mono text-xs">
-      {/* Header */}
-      <div>
+      {/* Header — ancla para alinear sticky de Herramienta 2 (no bajar por debajo de esta línea visual) */}
+      <div id="infra-cost-simulator" className="scroll-mt-24 md:scroll-mt-28">
         <span className="badge-premium mb-2 inline-block">INFRASTRUCTURE COST SIMULATOR</span>
         <h2 className="text-2xl font-serif text-white font-light">Cloud Cost Comparator</h2>
         <p className="text-zinc-500 text-xs mt-1">Calcula y compara los costos y arquitecturas de tu infraestructura cloud.</p>
@@ -323,23 +323,46 @@ export default function CloudCostCalculatorView() {
       {activeTab === 'id' && (
         <div className="space-y-6 animate-fadeIn">
           {/* Search bar */}
-          <div className="bg-zinc-950 border border-zinc-800 p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="space-y-1 flex-1">
-              <label className="text-[10px] text-zinc-500 block uppercase font-bold">Ingresar ID de Nube Demo</label>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-600" />
-                <input
-                  type="text"
-                  value={searchId}
-                  onChange={(e) => handleIdSearch(e.target.value)}
-                  placeholder="Ej. AWS-RTL-442 o OCI-FIN-993"
-                  className="w-full bg-black border border-zinc-800 text-white pl-10 pr-4 py-2 outline-none focus:border-accent font-mono text-xs placeholder:text-zinc-700"
-                />
+          <div className="bg-black border border-accent/25 p-5 rounded space-y-4 shadow-[0_0_15px_rgba(201,169,110,0.05)]">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+              <div className="space-y-1.5 flex-1">
+                <label className="text-[9px] text-accent font-bold uppercase tracking-wider block">// SIMULATOR DATABASE SEARCH</label>
+                <div className="relative">
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-accent/60" />
+                  <input
+                    type="text"
+                    value={searchId}
+                    onChange={(e) => handleIdSearch(e.target.value)}
+                    placeholder="Ingrese ID (ej. AWS-RTL-442 o OCI-FIN-993)"
+                    className="w-full bg-zinc-950/80 border border-zinc-800 focus:border-accent text-white pl-11 pr-4 py-2.5 outline-none font-mono text-xs placeholder:text-zinc-700 rounded transition-all shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="text-[10px] text-zinc-500 flex items-center gap-1.5 md:w-[320px]">
-              <HelpCircle className="w-4 h-4 text-accent shrink-0" />
-              <span>IDs disponibles: OCI-FIN-993, AWS-RTL-442, AZR-HLT-105, GCP-DAT-881. Características en nubes_demo_ids.txt.</span>
+              
+              <div className="p-4 bg-zinc-950 border border-zinc-900 rounded lg:w-[380px] space-y-2">
+                <div className="flex items-center gap-1.5 text-[9px] text-accent font-bold uppercase tracking-wide">
+                  <HelpCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>IDs Disponibles en Sistema</span>
+                </div>
+                <p className="text-[10px] text-zinc-500 leading-normal">
+                  Utilice uno de los siguientes identificadores preestablecidos para cargar la telemetría correspondiente:
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {Object.keys(DEMO_WORKLOADS).map(id => (
+                    <button
+                      key={id}
+                      onClick={() => handleIdSearch(id)}
+                      className={`px-2.5 py-1 text-[9px] font-mono border rounded cursor-pointer transition-all duration-300 ${
+                        searchId.trim().toUpperCase() === id
+                          ? "border-accent bg-accent/15 text-white shadow-[0_0_8px_rgba(201,169,110,0.25)]"
+                          : "border-zinc-800 text-zinc-500 hover:border-zinc-700 hover:text-zinc-300 bg-transparent"
+                      }`}
+                    >
+                      {id}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -363,30 +386,34 @@ export default function CloudCostCalculatorView() {
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
               {/* Left Column: Workload Info */}
-              <div className="lg:col-span-4 border border-zinc-800 p-5 bg-zinc-950/60 space-y-4">
+              <div className="lg:col-span-4 border border-accent/25 p-5 bg-zinc-950/80 rounded space-y-4 shadow-[0_0_15px_rgba(201,169,110,0.03)] relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-[2px] h-full bg-accent" />
+                
                 <div>
-                  <span className="badge-premium text-[9px] mb-2 inline-block">NUBE ENCONTRADA</span>
-                  <h3 className="text-sm font-bold text-white font-serif">{matchedWorkload.name}</h3>
-                  <p className="text-zinc-500 text-[10px] mt-1 italic">ID: {matchedWorkload.id}</p>
+                  <span className="text-[8px] font-mono text-accent bg-accent/5 border border-accent/30 px-1.5 py-0.5 rounded tracking-wider uppercase font-semibold">
+                    REGISTRO DETECTADO
+                  </span>
+                  <h3 className="text-sm font-bold text-white font-serif mt-2.5">{matchedWorkload.name}</h3>
+                  <p className="text-zinc-500 text-[10px] mt-1 font-mono">// ID RESIDENTE: {matchedWorkload.id}</p>
                 </div>
 
-                <div className="border-t border-zinc-900 pt-3 space-y-2">
-                  <div className="flex justify-between text-[11px]">
-                    <span className="text-zinc-500">Proveedor Original:</span>
-                    <span className="text-accent font-bold">{matchedWorkload.provider}</span>
+                <div className="border-t border-zinc-900/60 pt-3.5 space-y-2.5">
+                  <div className="flex justify-between text-[11px] font-mono">
+                    <span className="text-zinc-500">PROVEEDOR ORIGINAL:</span>
+                    <span className="text-accent font-bold tracking-wide">{matchedWorkload.provider}</span>
                   </div>
-                  <div className="flex justify-between text-[11px]">
-                    <span className="text-zinc-500">Costo Original Total:</span>
+                  <div className="flex justify-between text-[11px] font-mono">
+                    <span className="text-zinc-500">COSTO MENSUAL BASE:</span>
                     <span className="text-white font-bold">${(matchedWorkload.compute + matchedWorkload.storage + matchedWorkload.database + matchedWorkload.egress).toLocaleString()} USD</span>
                   </div>
                 </div>
 
-                <div className="border-t border-zinc-900 pt-3">
-                  <span className="text-[10px] text-zinc-500 block uppercase font-bold mb-2">Arquitectura Actual:</span>
-                  <ul className="space-y-1 text-[10px] text-zinc-400">
+                <div className="border-t border-zinc-900/60 pt-3.5 space-y-2">
+                  <span className="text-[9px] text-accent font-bold uppercase tracking-wider block">// ARQUITECTURA DE ORIGEN:</span>
+                  <ul className="space-y-2 text-[10px] text-zinc-400">
                     {matchedWorkload.features.map((f, i) => (
-                      <li key={i} className="flex items-start gap-1">
-                        <span className="text-accent select-none shrink-0">•</span>
+                      <li key={i} className="flex items-start gap-1.5">
+                        <span className="text-accent shrink-0 font-bold">▪</span>
                         <span>{f}</span>
                       </li>
                     ))}
@@ -397,8 +424,8 @@ export default function CloudCostCalculatorView() {
               {/* Right Column: Comparative Grid */}
               <div className="lg:col-span-8 space-y-6">
                 {/* Select target cloud */}
-                <div className="space-y-2">
-                  <label className="text-[10px] text-zinc-500 block uppercase font-bold">Seleccione Proveedor para Comparar:</label>
+                <div className="space-y-2.5">
+                  <label className="text-[9px] text-accent font-bold uppercase tracking-wider block">// SELECCIONE NUBE PARA COMPARATIVA DE COSTOS</label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                     {(['OCI', 'AWS', 'Azure', 'GCP'] as const).map(p => {
                       const isDisabled = p === matchedWorkload.provider;
@@ -408,15 +435,15 @@ export default function CloudCostCalculatorView() {
                           key={p}
                           disabled={isDisabled}
                           onClick={() => setCompareProvider(p)}
-                          className={`p-2 border text-center transition-colors font-bold ${
+                          className={`p-2.5 border text-center transition-all duration-300 font-bold rounded ${
                             isDisabled
-                              ? 'border-zinc-900/40 text-zinc-800 cursor-not-allowed bg-transparent'
+                              ? 'border-zinc-900/30 text-zinc-800 cursor-not-allowed bg-transparent font-light'
                               : isSelected
-                              ? 'border-accent text-accent bg-accent/5 cursor-pointer'
-                              : 'border-zinc-800 text-zinc-400 hover:border-zinc-700 cursor-pointer bg-transparent'
+                              ? 'border-accent text-accent bg-accent/10 shadow-[0_0_12px_rgba(201,169,110,0.08)] cursor-pointer'
+                              : 'border-zinc-800 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 cursor-pointer bg-zinc-950/20'
                           }`}
                         >
-                          {p} {isDisabled ? '(Actual)' : ''}
+                          {p} {isDisabled ? '(ORIGINAL)' : ''}
                         </button>
                       );
                     })}
@@ -426,68 +453,70 @@ export default function CloudCostCalculatorView() {
                 {compareProvider && (
                   <div className="space-y-6 animate-fadeIn">
                     {/* Comparative Table */}
-                    <div className="border border-zinc-800 overflow-x-auto bg-black">
-                      <table className="w-full text-left border-collapse">
-                        <thead>
-                          <tr className="border-b border-zinc-800 bg-zinc-950/60 font-bold">
-                            <th className="p-3 text-zinc-400">Aspecto de Costo</th>
-                            <th className="p-3 text-zinc-400 text-right">{matchedWorkload.provider} (Original)</th>
-                            <th className="p-3 text-accent text-right">{compareProvider} (Comparado)</th>
-                            <th className="p-3 text-right">Diferencia</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-zinc-900">
-                          {(['compute', 'storage', 'database', 'egress'] as const).map(cat => {
-                            const origVal = matchedWorkload[cat];
-                            const compVal = calculateEquivalent(origVal, cat, matchedWorkload.provider, compareProvider);
-                            const diff = compVal - origVal;
-                            const diffPct = Math.round((diff / origVal) * 100);
-                            return (
-                              <tr key={cat} className="hover:bg-zinc-950/20 text-[11px]">
-                                <td className="p-3 text-zinc-300 font-bold capitalize">{cat === 'compute' ? 'Compute / VMs' : cat === 'storage' ? 'Almacenamiento' : cat === 'database' ? 'Base de Datos' : 'Red / Egress'}</td>
-                                <td className="p-3 text-right text-zinc-400">${origVal.toLocaleString()}</td>
-                                <td className="p-3 text-right text-white font-bold">${compVal.toLocaleString()}</td>
-                                <td className={`p-3 text-right font-bold ${diff < 0 ? 'text-emerald-500' : diff > 0 ? 'text-red-500' : 'text-zinc-500'}`}>
-                                  {diff < 0 ? '-' : diff > 0 ? '+' : ''}${Math.abs(diff).toLocaleString()} ({diffPct > 0 ? '+' : ''}{diffPct}%)
-                                </td>
-                              </tr>
-                            );
-                          })}
-                          
-                          {/* Totals */}
-                          {(() => {
-                            const origTotal = matchedWorkload.compute + matchedWorkload.storage + matchedWorkload.database + matchedWorkload.egress;
-                            const compTotal =
-                              calculateEquivalent(matchedWorkload.compute, 'compute', matchedWorkload.provider, compareProvider) +
-                              calculateEquivalent(matchedWorkload.storage, 'storage', matchedWorkload.provider, compareProvider) +
-                              calculateEquivalent(matchedWorkload.database, 'database', matchedWorkload.provider, compareProvider) +
-                              calculateEquivalent(matchedWorkload.egress, 'egress', matchedWorkload.provider, compareProvider);
-                            const totalDiff = compTotal - origTotal;
-                            const totalDiffPct = Math.round((totalDiff / origTotal) * 100);
+                    <div className="border border-accent/30 rounded overflow-hidden shadow-[0_0_15px_rgba(201,169,110,0.05)] bg-black">
+                      <div className="overflow-x-auto w-full">
+                        <table className="w-full text-left border-collapse">
+                          <thead>
+                            <tr className="border-b border-accent/25 bg-zinc-900/30 font-mono text-[10px] uppercase text-zinc-400">
+                              <th className="p-3.5">CONCEPTO</th>
+                              <th className="p-3.5 text-right">{matchedWorkload.provider} (ORIGINAL)</th>
+                              <th className="p-3.5 text-accent text-right">{compareProvider} (SIMULADO)</th>
+                              <th className="p-3.5 text-right">DESVIACIÓN / AHORRO</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-accent/15">
+                            {(['compute', 'storage', 'database', 'egress'] as const).map(cat => {
+                              const origVal = matchedWorkload[cat];
+                              const compVal = calculateEquivalent(origVal, cat, matchedWorkload.provider, compareProvider);
+                              const diff = compVal - origVal;
+                              const diffPct = Math.round((diff / origVal) * 100);
+                              return (
+                                <tr key={cat} className="hover:bg-zinc-900/10 text-[11px] transition-colors">
+                                  <td className="p-3.5 text-zinc-300 font-bold capitalize">{cat === 'compute' ? 'Compute / VMs' : cat === 'storage' ? 'Almacenamiento' : cat === 'database' ? 'Base de Datos' : 'Red / Egress'}</td>
+                                  <td className="p-3.5 text-right text-zinc-400">${origVal.toLocaleString()}</td>
+                                  <td className="p-3.5 text-right text-white font-bold">${compVal.toLocaleString()}</td>
+                                  <td className={`p-3.5 text-right font-bold ${diff < 0 ? 'text-emerald-500' : diff > 0 ? 'text-red-500' : 'text-zinc-500'}`}>
+                                    {diff < 0 ? '-' : diff > 0 ? '+' : ''}${Math.abs(diff).toLocaleString()} ({diffPct > 0 ? '+' : ''}{diffPct}%)
+                                  </td>
+                                </tr>
+                              );
+                            })}
                             
-                            return (
-                              <>
-                                <tr className="border-t-2 border-zinc-800 bg-zinc-950 font-bold text-[12px]">
-                                  <td className="p-3 text-zinc-300">Costo Mensual Total</td>
-                                  <td className="p-3 text-right text-zinc-400">${origTotal.toLocaleString()}</td>
-                                  <td className="p-3 text-right text-accent">${compTotal.toLocaleString()}</td>
-                                  <td className={`p-3 text-right ${totalDiff < 0 ? 'text-emerald-500' : totalDiff > 0 ? 'text-red-500' : 'text-zinc-500'}`}>
-                                    {totalDiff < 0 ? '-' : totalDiff > 0 ? '+' : ''}${Math.abs(totalDiff).toLocaleString()} ({totalDiffPct > 0 ? '+' : ''}{totalDiffPct}%)
-                                  </td>
-                                </tr>
-                                <tr className="bg-zinc-950/40 text-[11px]">
-                                  <td className="p-3 text-zinc-500">Costo Anual Proyectado</td>
-                                  <td className="p-3 text-right text-zinc-600">${(origTotal * 12).toLocaleString()}</td>
-                                  <td className="p-3 text-right text-zinc-300 font-bold">${(compTotal * 12).toLocaleString()}</td>
-                                  <td className={`p-3 text-right font-bold ${totalDiff < 0 ? 'text-emerald-500' : totalDiff > 0 ? 'text-red-500' : 'text-zinc-500'}`}>
-                                    {totalDiff < 0 ? 'Ahorro' : 'Premium'}: ${Math.abs(totalDiff * 12).toLocaleString()} USD/año
-                                  </td>
-                                </tr>
-                              </>
-                            );
-                          })()}
-                        </tbody>
-                      </table>
+                            {/* Totals */}
+                            {(() => {
+                              const origTotal = matchedWorkload.compute + matchedWorkload.storage + matchedWorkload.database + matchedWorkload.egress;
+                              const compTotal =
+                                calculateEquivalent(matchedWorkload.compute, 'compute', matchedWorkload.provider, compareProvider) +
+                                calculateEquivalent(matchedWorkload.storage, 'storage', matchedWorkload.provider, compareProvider) +
+                                calculateEquivalent(matchedWorkload.database, 'database', matchedWorkload.provider, compareProvider) +
+                                calculateEquivalent(matchedWorkload.egress, 'egress', matchedWorkload.provider, compareProvider);
+                              const totalDiff = compTotal - origTotal;
+                              const totalDiffPct = Math.round((totalDiff / origTotal) * 100);
+                              
+                              return (
+                                <>
+                                  <tr className="border-t-2 border-accent/30 bg-zinc-950 font-bold text-xs">
+                                    <td className="p-3.5 text-zinc-200">Costo Mensual Total</td>
+                                    <td className="p-3.5 text-right text-zinc-400">${origTotal.toLocaleString()}</td>
+                                    <td className="p-3.5 text-right text-accent font-bold drop-shadow-[0_0_8px_rgba(201,169,110,0.35)]">${compTotal.toLocaleString()}</td>
+                                    <td className={`p-3.5 text-right ${totalDiff < 0 ? 'text-emerald-500 font-extrabold' : totalDiff > 0 ? 'text-red-500' : 'text-zinc-500'}`}>
+                                      {totalDiff < 0 ? '-' : totalDiff > 0 ? '+' : ''}${Math.abs(totalDiff).toLocaleString()} ({totalDiffPct > 0 ? '+' : ''}{totalDiffPct}%)
+                                    </td>
+                                  </tr>
+                                  <tr className="bg-zinc-950/60 text-[11px]">
+                                    <td className="p-3.5 text-zinc-500">Costo Anual Proyectado</td>
+                                    <td className="p-3.5 text-right text-zinc-600">${(origTotal * 12).toLocaleString()}</td>
+                                    <td className="p-3.5 text-right text-zinc-300 font-bold">${(compTotal * 12).toLocaleString()}</td>
+                                    <td className={`p-3.5 text-right font-extrabold ${totalDiff < 0 ? 'text-emerald-500' : totalDiff > 0 ? 'text-red-500' : 'text-zinc-500'}`}>
+                                      {totalDiff < 0 ? 'Ahorro' : 'Premium'}: ${Math.abs(totalDiff * 12).toLocaleString()} USD/año
+                                    </td>
+                                  </tr>
+                                </>
+                              );
+                            })()}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
 
                     {/* Technical Comparison Block */}

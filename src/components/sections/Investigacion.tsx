@@ -19,46 +19,76 @@ export default function Investigacion({ setActivePaper }: InvestigacionProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-on-scroll">
-          <div className="card-premium p-6 flex flex-col justify-between h-full">
-            <div>
-              <span className="badge-premium mb-3 inline-block">RESEARCH NOTE</span>
-              <h3 className="text-lg font-serif text-white mb-3">Por qué fallan los go-live de Oracle Fusion</h3>
-              <p className="text-zinc-500 text-xs mb-6">Análisis de patrones de fracaso en implementaciones LATAM, causas raíz en incentivos y propuesta de modelo alternativo de estabilización.</p>
+          <div className="card-premium p-6 md:p-7 flex flex-col h-full hover:border-accent/40 transition-all duration-300 group">
+            <div className="flex items-center justify-between gap-3 mb-5">
+              <span className="badge-premium inline-block">RESEARCH NOTE</span>
+              <span className="text-[10px] text-zinc-600 font-mono tracking-wider">PAPER 01</span>
             </div>
-            <button 
-              onClick={() => setActivePaper('Por qué fallan los go-live de Oracle Fusion')}
-              className="btn-outline-accent !py-2 justify-center w-full cursor-pointer text-xs"
-            >
-              Descargar Paper
-            </button>
+            <h3 className="text-xl md:text-2xl font-serif text-white font-light leading-tight mb-3 group-hover:text-accent transition-colors">
+              Por qué fallan los go-live de Oracle Fusion
+            </h3>
+            <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-1">
+              Análisis de patrones de fracaso en implementaciones LATAM, causas raíz en incentivos y propuesta de modelo alternativo de estabilización.
+            </p>
+            <div className="pt-5 border-t border-[rgba(201,169,110,0.12)]">
+              <button
+                onClick={() => setActivePaper('Por qué fallan los go-live de Oracle Fusion')}
+                className="btn-outline-accent !py-2.5 justify-center w-full cursor-pointer text-xs uppercase tracking-wider"
+              >
+                Descargar Paper
+              </button>
+              <span className="block mt-3 text-[10px] text-zinc-600 font-mono">
+                Acceso gated · entrega por correo corporativo
+              </span>
+            </div>
           </div>
 
-          <div className="card-premium p-6 flex flex-col justify-between h-full">
-            <div>
-              <span className="badge-premium mb-3 inline-block">TECHNICAL FRAMEWORK</span>
-              <h3 className="text-lg font-serif text-white mb-3">IA aplicada a cierre contable en Fusion Cloud</h3>
-              <p className="text-zinc-500 text-xs mb-6">Framework técnico de capas para conciliación inteligente, predicción de partidas pendientes y automatización de reportes de cierre.</p>
+          <div className="card-premium p-6 md:p-7 flex flex-col h-full hover:border-accent/40 transition-all duration-300 group">
+            <div className="flex items-center justify-between gap-3 mb-5">
+              <span className="badge-premium inline-block">TECHNICAL FRAMEWORK</span>
+              <span className="text-[10px] text-zinc-600 font-mono tracking-wider">PAPER 02</span>
             </div>
-            <button 
-              onClick={() => setActivePaper('IA aplicada a cierre contable en Fusion Cloud')}
-              className="btn-outline-accent !py-2 justify-center w-full cursor-pointer text-xs"
-            >
-              Descargar Paper
-            </button>
+            <h3 className="text-xl md:text-2xl font-serif text-white font-light leading-tight mb-3 group-hover:text-accent transition-colors">
+              IA aplicada a cierre contable en Fusion Cloud
+            </h3>
+            <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-1">
+              Framework técnico de capas para conciliación inteligente, predicción de partidas pendientes y automatización de reportes de cierre.
+            </p>
+            <div className="pt-5 border-t border-[rgba(201,169,110,0.12)]">
+              <button
+                onClick={() => setActivePaper('IA aplicada a cierre contable en Fusion Cloud')}
+                className="btn-outline-accent !py-2.5 justify-center w-full cursor-pointer text-xs uppercase tracking-wider"
+              >
+                Descargar Paper
+              </button>
+              <span className="block mt-3 text-[10px] text-zinc-600 font-mono">
+                Incluye arquitectura por capas + checklist de implementación
+              </span>
+            </div>
           </div>
 
-          <div className="card-premium p-6 flex flex-col justify-between h-full">
-            <div>
-              <span className="badge-premium mb-3 inline-block">DOCTRINA OPERATIVA</span>
-              <h3 className="text-lg font-serif text-white mb-3">Modelo de entrega en primer ciclo crítico</h3>
-              <p className="text-zinc-500 text-xs mb-6">Doctrina contractual y operativa de hitos de pago alineados a la estabilización real durante el primer ciclo financiero u operativo.</p>
+          <div className="card-premium p-6 md:p-7 flex flex-col h-full hover:border-accent/40 transition-all duration-300 group">
+            <div className="flex items-center justify-between gap-3 mb-5">
+              <span className="badge-premium inline-block">DOCTRINA OPERATIVA</span>
+              <span className="text-[10px] text-zinc-600 font-mono tracking-wider">PAPER 03</span>
             </div>
-            <button 
-              onClick={() => setActivePaper('Modelo de entrega en primer ciclo crítico')}
-              className="btn-outline-accent !py-2 justify-center w-full cursor-pointer text-xs"
-            >
-              Descargar Paper
-            </button>
+            <h3 className="text-xl md:text-2xl font-serif text-white font-light leading-tight mb-3 group-hover:text-accent transition-colors">
+              Modelo de entrega en primer ciclo crítico
+            </h3>
+            <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-1">
+              Doctrina contractual y operativa de hitos de pago alineados a la estabilización real durante el primer ciclo financiero u operativo.
+            </p>
+            <div className="pt-5 border-t border-[rgba(201,169,110,0.12)]">
+              <button
+                onClick={() => setActivePaper('Modelo de entrega en primer ciclo crítico')}
+                className="btn-outline-accent !py-2.5 justify-center w-full cursor-pointer text-xs uppercase tracking-wider"
+              >
+                Descargar Paper
+              </button>
+              <span className="block mt-3 text-[10px] text-zinc-600 font-mono">
+                Entregables + hitos + cláusulas de estabilización
+              </span>
+            </div>
           </div>
         </div>
       </div>

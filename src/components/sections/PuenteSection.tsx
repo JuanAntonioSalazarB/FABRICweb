@@ -205,14 +205,6 @@ export default function PuenteSection() {
               TESIS OPERATIVA
             </span>
 
-            <p className="text-zinc-400 text-lg md:text-2xl font-serif leading-relaxed max-w-3xl mb-8">
-              La mayoría de las implementaciones Oracle Fusion celebran el
-              go-live y abandonan al cliente con cierres pesados, usuarios
-              confundidos e incidencias abiertas.
-            </p>
-
-            <div className="w-20 h-px bg-accent opacity-70 mb-8" />
-
             <h2 className="text-4xl md:text-6xl font-serif font-light text-white leading-tight max-w-4xl mb-8">
               Nosotros nos quedamos hasta el primer cierre contable operado{" "}
               <span className="text-accent italic">en producción.</span>
@@ -220,7 +212,7 @@ export default function PuenteSection() {
 
             {/* Typewriter */}
             <div
-              className="flex items-center gap-2 min-h-[2rem]"
+              className="flex items-center gap-2 min-h-[2rem] mb-8"
               aria-live="polite"
             >
               <span className="text-zinc-500 text-sm">Eso significa:</span>
@@ -232,14 +224,14 @@ export default function PuenteSection() {
                 aria-hidden="true"
               />
             </div>
-          </div>
 
-          {/* Footer */}
-          <div className="border-t border-[rgba(201,169,110,0.15)] pt-6 flex flex-wrap items-center gap-4">
-            <span className="badge-premium">DOCTRINA 01</span>
-            <span className="text-white text-xl md:text-2xl font-serif font-light">
-              Por contrato.
-            </span>
+            <div className="w-20 h-px bg-accent opacity-70 mb-8" />
+
+            <p className="text-zinc-400 text-lg md:text-2xl font-serif leading-relaxed max-w-3xl">
+              La mayoría de las implementaciones Oracle Fusion celebran el
+              go-live y abandonan al cliente con cierres pesados, usuarios
+              confundidos e incidencias abiertas.
+            </p>
           </div>
         </div>
 

@@ -6,7 +6,7 @@ import { ShieldCheck, Lock, Building, Landmark, Wallet, Award, Users, ArrowRight
 import { getPublicReferencesConsentAction } from '@/app/actions/dashboard';
 
 interface ReferenciasProps {
-  setActiveOverlayModal: (modal: 'erp' | 'cloud' | 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
+  setActiveOverlayModal: (modal: 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
 }
 
 const REF_DETAILS: Record<string, {

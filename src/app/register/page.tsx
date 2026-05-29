@@ -70,6 +70,7 @@ export default function RegisterPage() {
           routing="path"
           path="/register"
           signInUrl="/login"
+          forceRedirectUrl="/dashboard"
         />
 
         {/* Footer info */}

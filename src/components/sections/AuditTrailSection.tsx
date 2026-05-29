@@ -250,7 +250,7 @@ export default function AuditTrailSection() {
                     <h3 className="text-base font-serif text-white font-light leading-tight">{currentTrail.caseName}</h3>
                     <Link 
                       href={`/casos/${activeCase === 'ape' ? 'ape-plazas' : 'aplazo'}/audit-trail`}
-                      className="text-accent hover:underline text-[10px] block font-mono mt-1"
+                      className="text-accent hover:underline text-[10px] block font-mono mt-1 hidden"
                     >
                       /casos/{activeCase === 'ape' ? 'ape-plazas' : 'aplazo'}/audit-trail →
                     </Link>

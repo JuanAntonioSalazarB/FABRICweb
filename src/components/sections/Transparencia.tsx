@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 interface TransparenciaProps {
-  setActiveOverlayModal: (modal: 'erp' | 'cloud' | 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
+  setActiveOverlayModal: (modal: 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
 }
 
 export default function Transparencia({ setActiveOverlayModal }: TransparenciaProps) {
@@ -47,16 +47,16 @@ export default function Transparencia({ setActiveOverlayModal }: TransparenciaPr
 
           {/* Right Column - Table/Console of Metrics */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="border border-zinc-800/80 bg-zinc-950/60 rounded overflow-hidden backdrop-blur-sm">
+            <div className="border border-accent/35 bg-zinc-950/60 rounded overflow-hidden backdrop-blur-sm shadow-[0_0_15px_rgba(201,169,110,0.08)]">
               {/* Header of the table */}
-              <div className="grid grid-cols-12 gap-2 bg-zinc-900/40 px-5 py-4 border-b border-zinc-850 text-[10px] tracking-wider text-zinc-500 font-mono uppercase">
+              <div className="grid grid-cols-12 gap-2 bg-zinc-900/40 px-5 py-4 border-b border-accent/20 text-[10px] tracking-wider text-zinc-500 font-mono uppercase">
                 <div className="col-span-8 sm:col-span-7">Indicador de Rendimiento</div>
                 <div className="col-span-4 sm:col-span-3 text-right">Valor Auditado</div>
                 <div className="hidden sm:block sm:col-span-2 text-right">Estado</div>
               </div>
 
               {/* Rows */}
-              <div className="divide-y divide-zinc-900">
+              <div className="divide-y divide-accent/15">
                 {metrics.map((m, idx) => {
                   let badge = "";
                   let progressValue = 0;
@@ -90,7 +90,7 @@ export default function Transparencia({ setActiveOverlayModal }: TransparenciaPr
                       {/* Column 1: Label & Category Badge */}
                       <div className="col-span-8 sm:col-span-7 space-y-1 pr-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-[8px] font-mono text-zinc-600 group-hover:text-accent transition-colors">
+                          <span className="text-[8px] font-mono text-accent/80 group-hover:text-accent transition-colors">
                             // {badge}
                           </span>
                         </div>
@@ -102,11 +102,11 @@ export default function Transparencia({ setActiveOverlayModal }: TransparenciaPr
                       {/* Column 2: Audited Value & Mini progress indicator */}
                       <div className="col-span-4 sm:col-span-3 text-right space-y-1.5">
                         <div className="flex items-baseline justify-end">
-                          <span className="text-accent text-xl font-bold font-mono tracking-tight group-hover:text-white transition-colors duration-300">
+                          <span className="text-accent text-xl font-bold font-mono tracking-tight transition-colors duration-300">
                             {m.value}
                           </span>
                           {m.unit && (
-                            <span className="text-zinc-500 text-xs font-mono ml-0.5">
+                            <span className="text-accent/60 text-xs font-mono ml-0.5">
                               {m.unit}
                             </span>
                           )}
@@ -116,13 +116,13 @@ export default function Transparencia({ setActiveOverlayModal }: TransparenciaPr
                         {progressValue > 0 ? (
                           <div className="h-[2px] bg-zinc-900 w-20 ml-auto rounded overflow-hidden">
                             <div 
-                              className="h-full bg-accent/40 group-hover:bg-accent transition-all duration-500"
+                              className="h-full bg-accent/60 group-hover:bg-accent transition-all duration-500 shadow-[0_0_8px_rgba(201,169,110,0.5)]"
                               style={{ width: `${progressValue}%` }}
                             />
                           </div>
                         ) : (
                           // For non-percentage values, display a subtle tag
-                          <div className="text-[8px] font-mono text-zinc-600 group-hover:text-zinc-400 transition-colors">
+                          <div className="text-[8px] font-mono text-accent/70 group-hover:text-accent transition-colors">
                             {m.label.includes("respuesta") ? "LIMIT CUMPLIDO" : "18 PROYECTOS"}
                           </div>
                         )}
@@ -130,7 +130,7 @@ export default function Transparencia({ setActiveOverlayModal }: TransparenciaPr
 
                       {/* Column 3: Audit Badge */}
                       <div className="col-span-12 sm:col-span-2 text-right mt-2 sm:mt-0 flex sm:justify-end">
-                        <span className="text-[8px] font-mono text-emerald-500 bg-emerald-950/20 border border-emerald-900/60 px-1.5 py-0.5 rounded tracking-wider uppercase font-semibold">
+                        <span className="text-[8px] font-mono text-accent bg-accent/10 border border-accent/40 px-1.5 py-0.5 rounded tracking-wider uppercase font-semibold shadow-[0_0_8px_rgba(201,169,110,0.15)]">
                           ✓ AUDITED
                         </span>
                       </div>
@@ -141,9 +141,9 @@ export default function Transparencia({ setActiveOverlayModal }: TransparenciaPr
             </div>
             
             {/* Terminal status line at bottom */}
-            <div className="p-3 bg-zinc-950 border border-zinc-800/60 text-[9px] text-zinc-500 font-mono flex items-center justify-between rounded">
+            <div className="p-3 bg-zinc-950 border border-accent/30 text-[9px] text-zinc-500 font-mono flex items-center justify-between rounded shadow-[0_0_8px_rgba(201,169,110,0.05)]">
               <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shadow-[0_0_8px_#C9A96E]"></span>
                 SYSTEM: INDICATORS SYNCED WITH BLOCKCHAIN AUDIT LOG
               </span>
               <span className="text-zinc-600">v1.0.1_STABLE</span>

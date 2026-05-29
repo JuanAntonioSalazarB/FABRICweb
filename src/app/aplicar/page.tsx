@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, Suspense } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ArrowRight, ShieldCheck, Calendar, CheckSquare, ArrowLeft, Users, Sparkles, Lock, AlertOctagon } from 'lucide-react';
@@ -27,6 +27,13 @@ function AplicarConfirmationContent() {
   const [wlError, setWlError] = useState('');
   const [wlSuccess, setWlSuccess] = useState(hasParams);
   const [loading, setLoading] = useState(false);
+  const [waitlistId, setWaitlistId] = useState<string>('');
+
+  useEffect(() => {
+    if (!wlSuccess) return;
+    if (waitlistId) return;
+    setWaitlistId(`FB-WL${Math.floor(1000 + Math.random() * 9000)}`);
+  }, [wlSuccess, waitlistId]);
 
   // Email validation helper
   const isCorporateEmail = (email: string) => {
@@ -180,9 +187,11 @@ function AplicarConfirmationContent() {
                   <div className="inline-block bg-accent/10 border border-accent/30 text-accent font-bold px-4 py-1.5 text-xs font-mono tracking-widest rounded">
                     PUESTO EN COLA DE ESPERA: #8
                   </div>
-                  <p className="text-zinc-500 text-[10px] font-mono block mt-1">
-                    REGISTRO ID: FB-WL{Math.floor(1000 + Math.random() * 9000)}
-                  </p>
+                  {waitlistId ? (
+                    <p className="text-zinc-500 text-[10px] font-mono block mt-1">
+                      REGISTRO ID: {waitlistId}
+                    </p>
+                  ) : null}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-zinc-400 font-mono text-xs">

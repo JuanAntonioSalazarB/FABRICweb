@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FABRIC · Brand Book · 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════════════════ */
+:root {
+  --black:        #0A0A0A;
+  --black-deep:   #000000;
+  --panel:        #111111;
+  --panel-2:      #161616;
+  --border:       #1E1E1E;
+  --border-2:     #2A2A2A;
+  --text:         #F0EDE8;
+  --text-2:       #9A9690;
+  --text-3:       #5A5650;
+  --gold:         #C9A96E;
+  --gold-light:   #D4B483;
+  --gold-dark:    #A07845;
+  --gold-deep:    #6B4F2A;
+  --gold-bright:  #E8C878;
+  --white:        #F5F3EF;
+  --danger:       #8B3A3A;
+  --mono:         'JetBrains Mono', monospace;
+  --serif:        'Cormorant Garamond', Georgia, serif;
+  --sans:         'Inter', system-ui, sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET + BASE
+═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════════════════════ */
+.page { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+.chapter {
+  padding: 120px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.chapter:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPOGRAPHY SYSTEM
+═══════════════════════════════════════════════════════════════ */
+.chapter-number {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.chapter-number::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-2), transparent);
+}
+
+.chapter-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 48px;
+  letter-spacing: -0.01em;
+}
+
+.chapter-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   COVER PAGE
+═══════════════════════════════════════════════════════════════ */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(201,169,110,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cover-meta {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  text-align: right;
+  line-height: 2;
+}
+
+.cover-center {
+  text-align: center;
+  position: relative;
+}
+
+/* THE MAIN LOGO — FABRIC wordmark with metallic effect */
+.cover-logo {
+  font-family: var(--serif);
+  font-size: clamp(80px, 14vw, 160px);
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  padding-left: 0.25em;
+  line-height: 1;
+  background: linear-gradient(
+    160deg,
+    var(--gold-deep)   0%,
+    var(--gold-dark)   18%,
+    var(--gold)        35%,
+    var(--gold-bright) 48%,
+    var(--gold)        58%,
+    var(--gold-dark)   72%,
+    var(--gold-deep)   85%,
+    var(--gold)        100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 24px rgba(201,169,110,0.15));
+  display: block;
+  margin-bottom: 32px;
+}
+
+.cover-divider {
+  width: 240px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto 24px;
+  opacity: 0.5;
+}
+
+.cover-tagline {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.45em;
+  color: var(--text-2);
+  text-transform: uppercase;
+  padding-left: 0.45em;
+}
+
+.cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.cover-doc-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-2);
+}
+
+.cover-doc-sub {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 01 — LOGO RECOMENDADO
+═══════════════════════════════════════════════════════════════ */
+.logo-canvas-dark {
+  background: var(--black-deep);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 48px;
+  margin-bottom: 4px;
+  position: relative;
+  min-height: 380px;
+}
+
+.logo-canvas-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(201,169,110,0.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.logo-canvas-light {
+  background: var(--white);
+  border: 1px solid #D8D5D0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 48px;
+  margin-bottom: 4px;
+  min-height: 380px;
+}
+
+.canvas-label {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+.canvas-spec {
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--text-3);
+  text-align: right;
+  line-height: 1.8;
+}
+
+/* Wordmark metallic — principal */
+.wm-metallic {
+  font-family: var(--serif);
+  font-size: clamp(60px, 10vw, 110px);
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  padding-left: 0.28em;
+  line-height: 1;
+  background: linear-gradient(
+    160deg,
+    var(--gold-deep)   0%,
+    var(--gold-dark)   18%,
+    var(--gold)        35%,
+    var(--gold-bright) 48%,
+    var(--gold)        58%,
+    var(--gold-dark)   72%,
+    var(--gold-deep)   85%,
+    var(--gold)        100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 16px rgba(201,169,110,0.2));
+  display: block;
+  margin-bottom: 28px;
+}
+
+.wm-tagline-dark {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.42em;
+  padding-left: 0.42em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+/* Wordmark flat on white */
+.wm-flat-black {
+  font-family: var(--serif);
+  font-size: clamp(60px, 10vw, 110px);
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  padding-left: 0.28em;
+  line-height: 1;
+  color: #0A0A0A;
+  display: block;
+  margin-bottom: 28px;
+}
+
+.wm-tagline-light {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.42em;
+  padding-left: 0.42em;
+  color: #9A9690;
+  text-transform: uppercase;
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+
+.approved-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.3);
+  padding: 8px 16px;
+  margin-bottom: 48px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.approved-badge::before {
+  content: '★';
+  font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 02 — 6 VARIACIONES
+═══════════════════════════════════════════════════════════════ */
+.variants-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.variant {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 64px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  position: relative;
+  transition: border-color 0.4s ease;
+  cursor: default;
+}
+
+.variant:hover { border-color: var(--border-2); }
+
+.variant-num {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+}
+
+.variant-name {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+.variant-rec {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.25);
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
+
+.variant-note {
+  position: absolute;
+  bottom: 18px;
+  left: 22px;
+  right: 22px;
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* VARIANTE A — Serif puro */
+.va-logo {
+  font-family: var(--serif);
+  font-size: 72px;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  padding-left: 0.28em;
+  color: var(--gold);
+  line-height: 1;
+}
+
+/* VARIANTE B — Mono técnico */
+.vb-logo {
+  font-family: var(--mono);
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.vb-sub {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  padding-left: 0.45em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+/* VARIANTE C — Acento lineal */
+.vc-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.vc-symbol {
+  position: relative;
+  width: 56px;
+  height: 2px;
+  background: var(--gold);
+}
+.vc-symbol::before, .vc-symbol::after {
+  content: '';
+  position: absolute;
+  background: var(--gold);
+  opacity: 0.5;
+}
+.vc-symbol::before {
+  width: 1px;
+  height: 14px;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.vc-symbol::after {
+  width: 6px;
+  height: 6px;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--gold);
+}
+.vc-logo {
+  font-family: var(--mono);
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: 0.45em;
+  padding-left: 0.45em;
+  color: var(--gold);
+  line-height: 1;
+}
+
+/* VARIANTE D — Diamante */
+.vd-wrap { display: flex; align-items: center; gap: 24px; }
+.vd-diamond {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+  position: relative;
+}
+.vd-diamond::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: rgba(201,169,110,0.15);
+}
+.vd-logo {
+  font-family: var(--mono);
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  padding-left: 0.38em;
+  color: var(--gold);
+  line-height: 1;
+}
+
+/* VARIANTE E — Serif con tagline */
+.ve-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.ve-logo {
+  font-family: var(--serif);
+  font-size: 88px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  padding-left: 0.22em;
+  color: var(--gold);
+  line-height: 1;
+  font-style: italic;
+}
+.ve-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.3;
+}
+.ve-tagline {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.55em;
+  padding-left: 0.55em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+
+/* VARIANTE F — Monograma F en caja */
+.vf-wrap { display: flex; align-items: center; gap: 20px; }
+.vf-box {
+  width: 56px;
+  height: 56px;
+  border: 1.5px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.vf-box::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(201,169,110,0.15);
+}
+.vf-letter {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 400;
+  color: var(--gold);
+  line-height: 1;
+}
+.vf-logo {
+  font-family: var(--mono);
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  padding-left: 0.38em;
+  color: var(--gold);
+  line-height: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 03 — PALETA DE COLOR
+═══════════════════════════════════════════════════════════════ */
+.palette-primary {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+.palette-secondary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin-bottom: 48px;
+}
+
+.swatch {
+  position: relative;
+  overflow: hidden;
+}
+
+.swatch-color {
+  width: 100%;
+  aspect-ratio: 1.2;
+}
+
+.swatch-info {
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-top: none;
+}
+
+.swatch-primary .swatch-color { aspect-ratio: 0.8; }
+
+.swatch-name {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.swatch-hex {
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+}
+
+.swatch-use {
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+
+/* Gradient metallic swatch */
+.gradient-preview {
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(160deg,
+    #6B4F2A 0%, #A07845 18%, #C9A96E 35%,
+    #E8C878 48%, #C9A96E 58%, #A07845 72%,
+    #6B4F2A 85%, #C9A96E 100%
+  );
+  margin-bottom: 16px;
+}
+
+/* Color usage matrix */
+.color-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.color-use-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+
+.color-use-card-title {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.color-use-card ul {
+  list-style: none;
+}
+
+.color-use-card li {
+  font-size: 11px;
+  color: var(--text-2);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  padding-left: 12px;
+  position: relative;
+  letter-spacing: 0.03em;
+}
+
+.color-use-card li::before {
+  content: '·';
+  color: var(--gold);
+  position: absolute;
+  left: 0;
+}
+
+.color-use-card li:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 04 — BRIEF TEXTUAL
+═══════════════════════════════════════════════════════════════ */
+.brief-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brief-block {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brief-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--gold);
+}
+
+.brief-block-num {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.brief-block-title {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 28px;
+  line-height: 1.2;
+}
+
+.brief-block p {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.8;
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+.brief-block strong { color: var(--text); font-weight: 500; }
+
+.brief-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 16px;
+}
+
+.brief-list-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-2);
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding-right: 24px;
+}
+
+.brief-list-item .mark {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+.mark-yes { color: var(--gold); }
+.mark-no  { color: var(--danger); }
+
+/* Tipografías */
+.type-specimens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 24px;
+}
+
+.type-specimen {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  position: relative;
+}
+
+.type-rec-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  background: rgba(201,169,110,0.1);
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+
+.type-name {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-3);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.type-use {
+  font-size: 9px;
+  color: var(--text-3);
+  margin-top: 16px;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   5 PREGUNTAS — PRUEBA FINAL
+═══════════════════════════════════════════════════════════════ */
+.five-questions {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+
+.question-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 32px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.question-card:hover { border-color: var(--gold); }
+
+.question-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.question-card:hover::after { transform: scaleX(1); }
+
+.q-num {
+  font-family: var(--serif);
+  font-size: 72px;
+  font-weight: 300;
+  color: rgba(201,169,110,0.08);
+  line-height: 1;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.q-text {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+.q-check {
+  margin-top: 20px;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.q-check::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border-2);
+  display: inline-block;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 05 — ENTREGABLES
+═══════════════════════════════════════════════════════════════ */
+.deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.deliverable {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 36px;
+}
+
+.deliverable-icon {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: var(--gold);
+  font-family: var(--serif);
+  font-weight: 300;
+}
+
+.deliverable-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.deliverable-items {
+  list-style: none;
+}
+
+.deliverable-items li {
+  font-size: 11px;
+  color: var(--text-3);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+
+.deliverable-items li:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 06 — USO CORRECTO E INCORRECTO
+═══════════════════════════════════════════════════════════════ */
+.dos-donts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.do-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  overflow: hidden;
+}
+
+.dont-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--danger);
+  overflow: hidden;
+}
+
+.dd-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dd-title {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.do-card .dd-title { color: var(--gold); }
+.dont-card .dd-title { color: var(--danger); }
+
+.dd-body { padding: 28px; }
+
+.dd-example {
+  background: var(--black-deep);
+  border: 1px solid var(--border);
+  padding: 40px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  position: relative;
+}
+
+.dd-example-light {
+  background: #F0EDE8;
+  border: 1px solid #D0CCC5;
+  padding: 40px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+}
+
+.dd-note {
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+}
+
+/* Incorrect examples */
+.wrong-1 {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 300;
+  color: #4A90E2; /* wrong color */
+  letter-spacing: 0.2em;
+  padding-left: 0.2em;
+}
+
+.wrong-2 {
+  font-family: var(--mono);
+  font-size: 32px;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wrong-icon {
+  font-size: 36px;
+  opacity: 0.7;
+}
+
+.wrong-3 {
+  font-family: Arial, sans-serif;
+  font-size: 52px;
+  font-weight: bold;
+  color: var(--gold);
+}
+
+.wrong-4 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.wrong-x {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 120px;
+  color: rgba(139,58,58,0.12);
+  font-family: var(--mono);
+  font-weight: 300;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════════ */
+.doc-footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  padding-left: 0.2em;
+  color: var(--gold);
+}
+
+.footer-meta {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  text-align: right;
+  line-height: 2;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cover-center > * {
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.cover-logo          { animation-delay: 0.1s; }
+.cover-divider        { animation-delay: 0.4s; }
+.cover-tagline        { animation-delay: 0.6s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .page { padding: 0 24px; }
+  .variants-grid { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .brief-list { grid-template-columns: 1fr; }
+  .five-questions { grid-template-columns: 1fr 1fr; }
+  .deliverables-grid { grid-template-columns: 1fr; }
+  .dos-donts { grid-template-columns: 1fr; }
+  .color-matrix { grid-template-columns: 1fr; }
+  .type-specimens { grid-template-columns: 1fr; }
+  .palette-primary { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- COVER -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="chapter" style="padding: 0; border-bottom: 1px solid var(--border);">
+  <div class="page">
+    <div class="cover">
+      <div class="cover-top">
+        <div class="label">FABRIC · Brand Book · 2026</div>
+        <div class="cover-meta">
+          Versión 1.0 · Mayo 2026<br>
+          Documento confidencial<br>
+          Uso interno
+        </div>
+      </div>
+
+      <div class="cover-center">
+        <span class="cover-logo">FABRIC</span>
+        <div class="cover-divider"></div>
+        <div class="cover-tagline">Oracle Critical Engineering</div>
+      </div>
+
+      <div class="cover-bottom">
+        <div>
+          <div class="cover-doc-title">Identidad Visual · Brief para Diseñador</div>
+          <div class="cover-doc-sub">fabricsoft.com.mx · México · USA</div>
+        </div>
+        <div class="label">Julio Alvarez · Founder & CEO</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 01 — LOGO RECOMENDADO -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="page">
+    <div class="chapter-number">01</div>
+    <div class="chapter-title">Logo <em>recomendado.</em></div>
+
+    <div class="approved-badge">Dirección aprobada · Versión definitiva</div>
+
+    <!-- VERSIÓN OSCURA -->
+    <div class="logo-canvas-dark" style="margin-bottom: 4px;">
+      <span class="canvas-label">Versión principal · Sobre negro</span>
+      <div style="text-align: center; position: relative; z-index: 1;">
+        <span class="wm-metallic">FABRIC</span>
+        <div class="wm-tagline-dark">Oracle Critical Engineering</div>
+      </div>
+      <div class="canvas-spec">
+        Fondo: #000000<br>
+        Logo: gradiente metálico dorado<br>
+        Tagline: #5A5650 · 10px · 0.42em tracking
+      </div>
+    </div>
+
+    <!-- VERSIONES ALTERNATIVAS 2-col -->
+    <div class="two-col" style="margin-bottom: 48px;">
+      <!-- Versión solo wordmark sin tagline -->
+      <div class="logo-canvas-dark" style="margin-bottom: 0; min-height: 240px;">
+        <span class="canvas-label">Sin tagline · Uso compacto</span>
+        <span class="wm-metallic" style="font-size: clamp(48px, 7vw, 80px);">FABRIC</span>
+        <div class="canvas-spec">Para favicon grande, encabezados<br>y uso donde la tagline es redundante</div>
+      </div>
+
+      <!-- Versión sobre blanco -->
+      <div class="logo-canvas-light" style="margin-bottom: 0; min-height: 240px; position: relative;">
+        <span style="position: absolute; top: 20px; left: 24px; font-size: 9px; letter-spacing: 0.2em; color: #9A9690; text-transform: uppercase;">Versión invertida · Sobre claro</span>
+        <div style="text-align: center;">
+          <span class="wm-flat-black" style="font-size: clamp(48px, 7vw, 80px);">FABRIC</span>
+          <div class="wm-tagline-light">Oracle Critical Engineering</div>
+        </div>
+        <div style="position: absolute; bottom: 20px; right: 24px; font-size: 9px; letter-spacing: 0.1em; color: #9A9690; text-align: right; line-height: 1.8;">
+          Fondo: #F5F3EF<br>
+          Logo: #0A0A0A<br>
+          Tagline: #9A9690
+        </div>
+      </div>
+    </div>
+
+    <!-- Análisis del logo aprobado -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px;">
+      <div style="background: var(--panel); border: 1px solid var(--border); padding: 28px;">
+        <div class="label" style="color: var(--gold); margin-bottom: 12px;">Tipografía</div>
+        <div style="font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--text); margin-bottom: 8px;">Cormorant Garamond</div>
+        <div style="font-size: 11px; color: var(--text-3); line-height: 1.7;">Weight 300 · Mayúsculas · 0.28em tracking<br>Sin serifa adicional · Sin ícono</div>
+      </div>
+      <div style="background: var(--panel); border: 1px solid var(--border); padding: 28px;">
+        <div class="label" style="color: var(--gold); margin-bottom: 12px;">Efecto metálico</div>
+        <div style="height: 32px; background: linear-gradient(160deg, #6B4F2A, #A07845, #C9A96E, #E8C878, #C9A96E, #A07845, #6B4F2A); border-radius: 2px; margin-bottom: 8px;"></div>
+        <div style="font-size: 11px; color: var(--text-3); line-height: 1.7;">Gradiente 5 stops · Ángulo 160°<br>CSS text-fill o SVG linearGradient</div>
+      </div>
+      <div style="background: var(--panel); border: 1px solid var(--border); padding: 28px;">
+        <div class="label" style="color: var(--gold); margin-bottom: 12px;">Espaciado</div>
+        <div style="font-size: 32px; font-family: var(--serif); font-weight: 300; color: var(--gold); letter-spacing: 0.28em; padding-left: 0.28em; margin-bottom: 8px;">FA</div>
+        <div style="font-size: 11px; color: var(--text-3); line-height: 1.7;">letter-spacing: 0.28em<br>Tracking consistente en todas las versiones</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 02 — 6 VARIACIONES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="page">
+    <div class="chapter-number">02</div>
+    <div class="chapter-title">Variaciones <em>exploradas.</em></div>
+
+    <div class="variants-grid">
+
+      <!-- A — Serif puro -->
+      <div class="variant">
+        <span class="variant-num">A</span>
+        <span class="variant-rec">★ Base recomendada</span>
+        <span class="va-logo">FABRIC</span>
+        <div class="variant-note">Cormorant Garamond 300 · Dorado plano · Sin tagline · Para uso en documentos y presentaciones</div>
+      </div>
+
+      <!-- B — Mono técnico -->
+      <div class="variant">
+        <span class="variant-num">B</span>
+        <span class="variant-name">Mono técnico</span>
+        <div>
+          <div class="vb-logo">FABRIC</div>
+          <div class="vb-sub">Oracle Critical Engineering</div>
+        </div>
+        <div class="variant-note">JetBrains Mono 500 · 0.4em tracking · Con tagline · Para uso en contextos técnicos y digitales</div>
+      </div>
+
+      <!-- C — Acento lineal -->
+      <div class="variant">
+        <span class="variant-num">C</span>
+        <span class="variant-name">Acento lineal</span>
+        <div class="vc-wrap">
+          <div class="vc-symbol"></div>
+          <div class="vc-logo">FABRIC</div>
+        </div>
+        <div class="variant-note">Símbolo abstracto de precisión · Sin iconografía literal · Evoca exactitud de ingeniería</div>
+      </div>
+
+      <!-- D — Diamante -->
+      <div class="variant">
+        <span class="variant-num">D</span>
+        <span class="variant-name">Símbolo diamante</span>
+        <div class="vd-wrap">
+          <div class="vd-diamond"></div>
+          <div class="vd-logo">FABRIC</div>
+        </div>
+        <div class="variant-note">Rombo girado 45° como símbolo de precisión y valor · Funciona bien en firma de email</div>
+      </div>
+
+      <!-- E — Serif italic con tagline -->
+      <div class="variant">
+        <span class="variant-num">E</span>
+        <span class="variant-name">Serif itálica</span>
+        <div class="ve-wrap">
+          <div class="ve-logo">Fabric</div>
+          <div class="ve-rule"></div>
+          <div class="ve-tagline">Oracle Critical Engineering</div>
+        </div>
+        <div class="variant-note">Itálica serif · Mixed case · Más cercano a firma de consultoría clásica · Alternativa editorial</div>
+      </div>
+
+      <!-- F — Monograma en caja -->
+      <div class="variant">
+        <span class="variant-num">F</span>
+        <span class="variant-name">Monograma · favicon</span>
+        <div class="vf-wrap">
+          <div class="vf-box">
+            <span class="vf-letter">F</span>
+          </div>
+          <div class="vf-logo">ABRIC</div>
+        </div>
+        <div class="variant-note">F en cuadro como símbolo independiente · Uso exclusivo para favicon 32×32 y avatares de perfil</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 03 — PALETA DE COLOR -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="page">
+    <div class="chapter-number">03</div>
+    <div class="chapter-title">Paleta de <em>color.</em></div>
+
+    <!-- Swatches primarios -->
+    <div class="palette-primary" style="margin-bottom: 2px;">
+      <div class="swatch swatch-primary">
+        <div class="swatch-color" style="background: #0A0A0A; border-right: 1px solid var(--border-2);"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Noir · Base</span>
+          <span class="swatch-hex">#0A0A0A</span>
+          <span class="swatch-use">Fondo principal de todos los soportes de marca. Nunca reemplazar con gris.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #C9A96E;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Champagne</span>
+          <span class="swatch-hex">#C9A96E</span>
+          <span class="swatch-use">Color principal del logo en versión plana y todos los acentos.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #A07845;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Bronce</span>
+          <span class="swatch-hex">#A07845</span>
+          <span class="swatch-use">Sombras del gradiente metálico. Hover states en digital.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #E8C878;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Highlight</span>
+          <span class="swatch-hex">#E8C878</span>
+          <span class="swatch-use">Punto de luz del gradiente metálico. No usar como color independiente.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #6B4F2A;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Sombra dorada</span>
+          <span class="swatch-hex">#6B4F2A</span>
+          <span class="swatch-use">Extremos del gradiente metálico. Para profundidad y dimensión.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Swatches secundarios -->
+    <div class="palette-secondary">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #F5F3EF; border: 1px solid #D0CCC5;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Crema</span>
+          <span class="swatch-hex">#F5F3EF</span>
+          <span class="swatch-use">Fondo versión clara.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #F0EDE8; border: 1px solid #D0CCC5;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Marfil</span>
+          <span class="swatch-hex">#F0EDE8</span>
+          <span class="swatch-use">Cuerpo de texto versión clara.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #9A9690;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Gris cálido</span>
+          <span class="swatch-hex">#9A9690</span>
+          <span class="swatch-use">Texto secundario, tagline.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #5A5650;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Gris profundo</span>
+          <span class="swatch-hex">#5A5650</span>
+          <span class="swatch-use">Labels y metadata.</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1E1E1E;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">Panel</span>
+          <span class="swatch-hex">#1E1E1E</span>
+          <span class="swatch-use">Bordes y separadores digitales.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gradiente metálico -->
+    <div style="background: var(--panel); border: 1px solid var(--border); padding: 36px; margin-bottom: 48px; margin-top: 2px;">
+      <div class="label" style="color: var(--gold); margin-bottom: 20px;">Gradiente metálico — Logo versión principal</div>
+      <div class="gradient-preview"></div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
+        <div style="text-align: center; font-size: 10px; color: var(--text-3);">#6B4F2A<br><span style="color: var(--text-2);">0%</span></div>
+        <div style="text-align: center; font-size: 10px; color: var(--text-3);">#A07845<br><span style="color: var(--text-2);">18%</span></div>
+        <div style="text-align: center; font-size: 10px; color: var(--text-3);">#C9A96E<br><span style="color: var(--text-2);">35%</span></div>
+        <div style="text-align: center; font-size: 10px; color: var(--text-3);">#E8C878<br><span style="color: var(--text-2);">48%</span></div>
+        <div style="text-align: center; font-size: 10px; color: var(--text-3);">#C9A96E<br><span style="color: var(--text-2);">100%</span></div>
+      </div>
+    </div>
+
+    <!-- Matriz de uso -->
+    <div class="color-matrix">
+      <div class="color-use-card">
+        <div class="color-use-card-title">Uso en digital</div>
+        <ul>
+          <li>Fondo sitio web: #0A0A0A</li>
+          <li>Logo sobre web: gradiente metálico CSS</li>
+          <li>CTAs y acentos: #C9A96E</li>
+          <li>Hover states: #A07845</li>
+          <li>Bordes: #1E1E1E — #2A2A2A</li>
+          <li>Texto principal: #F0EDE8</li>
+          <li>Texto secundario: #9A9690</li>
+        </ul>
+      </div>
+      <div class="color-use-card">
+        <div class="color-use-card-title">Uso en impresión</div>
+        <ul>
+          <li>Tarjeta de presentación: negro mate + dorado en relieve metálico o foil</li>
+          <li>Papel membretado: negro o crema (#F5F3EF)</li>
+          <li>Logo impreso oscuro: dorado Pantone 871 C o 872 C</li>
+          <li>Logo impreso claro: negro 6 C</li>
+          <li>Sin efectos digitales en impresión plana</li>
+          <li>Acabado preferido: papel texturizado, no brillante</li>
+        </ul>
+      </div>
+      <div class="color-use-card">
+        <div class="color-use-card-title">Prohibiciones de color</div>
+        <ul>
+          <li>Nunca usar azul saturado (#3B82F6, etc.)</li>
+          <li>Nunca usar verde o rojo brillante</li>
+          <li>Nunca usar gradiente arco iris</li>
+          <li>Nunca usar fondo gris medio (#888)</li>
+          <li>Nunca usar dorado amarillo puro (#FFD700)</li>
+          <li>Nunca cambiar proporción del gradiente metálico</li>
+          <li>Nunca usar logo sobre fotografía sin área de respeto</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 04 — BRIEF TEXTUAL -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="page">
+    <div class="chapter-number">04</div>
+    <div class="chapter-title">Brief <em>para el diseñador.</em></div>
+
+    <div class="brief-blocks">
+
+      <!-- BLOQUE 1 — Posicionamiento -->
+      <div class="brief-block">
+        <div class="brief-block-num">Bloque 01 de 05</div>
+        <div class="brief-block-title">Posicionamiento de la marca</div>
+        <p><strong>FABRIC</strong> es una firma boutique de Oracle Critical Engineering con sede en México y expansión activa a Estados Unidos bajo la entidad <strong>Blue Cloud Solutions LLC</strong>.</p>
+        <p>No es una consultora de software genérica. No es una agencia. Es una <strong>firma de ingeniería de precisión</strong> para empresas con revenue entre USD 50M y 500M+ que operan en servicios financieros, inmobiliario o logística.</p>
+        <p>El cliente ideal es un <strong>CFO o CTO</strong> que evalúa contratar un proyecto Oracle Fusion de USD 150,000 a USD 2,000,000. La decisión tarda 3 a 12 meses e involucra due diligence real del proveedor.</p>
+        <p>La promesa única de marca es: <strong>"No entregamos en go-live. Entregamos cuando tu primer ciclo crítico opera en producción."</strong></p>
+        <p>La identidad visual debe comunicar <strong>autoridad, precisión y selectividad</strong> — no urgencia de venta, no tecnología genérica, no startup amigable.</p>
+      </div>
+
+      <!-- BLOQUE 2 — Entregables -->
+      <div class="brief-block">
+        <div class="brief-block-num">Bloque 02 de 05</div>
+        <div class="brief-block-title">Entregables requeridos</div>
+        <div class="brief-list">
+          <div class="brief-list-item">
+            <span class="mark mark-yes">01</span>
+            <span><strong>Wordmark principal oscuro</strong> — FABRIC sobre negro con efecto metálico dorado. SVG + PNG transparente 4000px ancho.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">02</span>
+            <span><strong>Wordmark principal claro</strong> — FABRIC negro sobre fondo crema. SVG + PNG transparente 4000px ancho.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">03</span>
+            <span><strong>Wordmark monocromático</strong> — solo blanco y solo negro, sin efectos. Para uso en papelería y estampado.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">04</span>
+            <span><strong>Favicon / Avatar</strong> — Solo la F del monograma o variante cuadrada. SVG + PNG 32×32, 64×64, 512×512.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">05</span>
+            <span><strong>Open Graph image</strong> — 1200×630px, logo centrado sobre negro con tagline. PNG.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">06</span>
+            <span><strong>Firma de email</strong> — 200px de ancho, logo negro sobre blanco, para Outlook y Gmail. PNG.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">07</span>
+            <span><strong>Tarjeta de presentación</strong> — Mockup de diseño (frente y reverso). Especificaciones para imprenta.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">08</span>
+            <span><strong>Tipografía</strong> — Nombre exacto de la fuente usada + tipo de licencia + archivo de fuente para el equipo.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOQUE 3 — Qué SÍ -->
+      <div class="brief-block">
+        <div class="brief-block-num">Bloque 03 de 05</div>
+        <div class="brief-block-title">Qué SÍ queremos</div>
+        <div class="brief-list">
+          <div class="brief-list-item">
+            <span class="mark mark-yes">✓</span>
+            <span>Tipografía geométrica sans-serif moderna <strong>O</strong> serif elegante de alto contraste.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">✓</span>
+            <span>Letras en mayúsculas con tracking generoso — entre 0.2em y 0.4em.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">✓</span>
+            <span>Dorado champagne <strong>#C9A96E</strong> como color único de marca. No amarillo brillante.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">✓</span>
+            <span>Wordmark puro sin ícono <strong>O</strong> símbolo abstracto mínimo que evoque precisión.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">✓</span>
+            <span>Sensación de autoridad, ingeniería seria, boutique de alto valor.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">✓</span>
+            <span>Referencias directas: Bain & Company, Sequoia Capital, Linear.app, Vercel.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">✓</span>
+            <span>Efecto metálico sutil en versión digital oscura — gradiente de 5 stops dorados.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-yes">✓</span>
+            <span>Licencia comercial comprobable para cualquier tipografía usada (México + USA).</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOQUE 4 — Qué NO -->
+      <div class="brief-block">
+        <div class="brief-block-num">Bloque 04 de 05</div>
+        <div class="brief-block-title">Qué NO queremos</div>
+        <div class="brief-list">
+          <div class="brief-list-item">
+            <span class="mark mark-no">✗</span>
+            <span>Nube, código &lt;/&gt;, circuito, engranaje, base de datos, rayo, CPU. <strong>Sin iconografía literal de tecnología.</strong></span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-no">✗</span>
+            <span>Tipografía redondeada tipo startup — ninguna fuente con border-radius perceptible.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-no">✗</span>
+            <span>Azul saturado, verde neón, rojo brillante — en ningún elemento de la identidad.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-no">✗</span>
+            <span>Gradientes de color tipo SaaS (morado → azul → verde). Solo gradiente metálico dorado.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-no">✗</span>
+            <span>El nombre "FabricSoft" — la marca pública es <strong>FABRIC</strong> únicamente.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-no">✗</span>
+            <span>Efectos 3D exagerados, brillos de videojuego o efectos de neón.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-no">✗</span>
+            <span>Inter, Roboto, Arial, Lato, Open Sans — cualquier fuente genérica de Google Fonts.</span>
+          </div>
+          <div class="brief-list-item">
+            <span class="mark mark-no">✗</span>
+            <span>Logo de Tesla o SpaceX modificado. Cualquier derivación de marca registrada de terceros.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOQUE 5 — Tipografías candidatas -->
+      <div class="brief-block">
+        <div class="brief-block-num">Bloque 05 de 05</div>
+        <div class="brief-block-title">Tipografías candidatas</div>
+        <p>El diseñador debe evaluar mínimo 3 opciones tipográficas y presentarlas antes de la versión final.</p>
+
+        <div class="type-specimens">
+          <!-- SERIF -->
+          <div class="type-specimen">
+            <div class="type-rec-badge">★ Recomendada</div>
+            <div class="type-name">Opción 1 · Serif elegante</div>
+            <div style="font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--gold); letter-spacing: 0.2em; padding-left: 0.2em; line-height: 1;">FABRIC</div>
+            <div class="type-use">
+              Cormorant Garamond, Playfair Display,<br>
+              Freight Display, Cardinal Fruit.<br>
+              Comunica: autoridad, permanencia, boutique.
+            </div>
+          </div>
+
+          <!-- GEOMETRIC SANS -->
+          <div class="type-specimen">
+            <div class="type-name">Opción 2 · Sans geométrico</div>
+            <div style="font-size: 40px; font-weight: 500; letter-spacing: 0.35em; padding-left: 0.35em; color: var(--gold); line-height: 1; font-variant: small-caps;">FABRIC</div>
+            <div class="type-use">
+              GT America, Neue Haas Grotesk,<br>
+              Söhne, Monument Grotesk, Aktiv Grotesk.<br>
+              Comunica: precisión, modernidad, ingeniería.
+            </div>
+          </div>
+
+          <!-- MONO -->
+          <div class="type-specimen">
+            <div class="type-name">Opción 3 · Mono estructurado</div>
+            <div style="font-family: var(--mono); font-size: 36px; font-weight: 500; letter-spacing: 0.4em; padding-left: 0.4em; color: var(--gold); line-height: 1;">FABRIC</div>
+            <div class="type-use">
+              JetBrains Mono, IBM Plex Mono.<br>
+              <strong>Solo para tagline</strong> — no como tipografía<br>
+              principal del wordmark.
+            </div>
+          </div>
+        </div>
+
+        <div style="background: var(--panel-2); border: 1px solid var(--border); padding: 24px; margin-top: 2px;">
+          <div class="label" style="color: var(--gold); margin-bottom: 12px;">Nota crítica sobre licencias</div>
+          <p style="font-size: 12px; color: var(--text-2); line-height: 1.8;">Antes de cerrar el logo, confirmar por escrito: (1) nombre exacto de la tipografía, (2) fundición o proveedor, (3) tipo de licencia (web, impresión, aplicaciones), (4) cobertura geográfica (México + USA), (5) número de usuarios o dispositivos incluidos. Una tipografía sin licencia comercial es un riesgo legal en due diligence de M&A.</p>
+        </div>
+      </div>
+
+    </div><!-- end brief-blocks -->
+
+    <!-- LAS 5 PREGUNTAS -->
+    <div style="margin-top: 80px;">
+      <div class="chapter-number" style="margin-bottom: 24px;">Prueba final · Antes de aprobar cualquier versión</div>
+      <div style="font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--text); margin-bottom: 40px; line-height: 1.2;">
+        El logo debe responder <em>sí</em> a las 5.
+      </div>
+
+      <div class="five-questions">
+        <div class="question-card">
+          <div class="q-num">1</div>
+          <div class="q-text">¿Un CFO de banco con revenue USD 500M lo vería y diría <strong>"esta firma es seria"</strong>?</div>
+          <div class="q-check">Verificado</div>
+        </div>
+        <div class="question-card">
+          <div class="q-num">2</div>
+          <div class="q-text">¿Funciona en <strong>tarjeta de presentación física</strong> con relieve dorado o foil metálico?</div>
+          <div class="q-check">Verificado</div>
+        </div>
+        <div class="question-card">
+          <div class="q-num">3</div>
+          <div class="q-text">¿Funciona en <strong>firma de email</strong> como imagen de 200px sobre fondo blanco?</div>
+          <div class="q-check">Verificado</div>
+        </div>
+        <div class="question-card">
+          <div class="q-num">4</div>
+          <div class="q-text">¿Funciona como <strong>favicon 32×32</strong> sin perder identidad ni legibilidad?</div>
+          <div class="q-check">Verificado</div>
+        </div>
+        <div class="question-card">
+          <div class="q-num">5</div>
+          <div class="q-text">¿Pasa un <strong>due diligence de M&A</strong> sin generar preguntas sobre la identidad o licencias?</div>
+          <div class="q-check">Verificado</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 05 — ENTREGABLES FINALES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="page">
+    <div class="chapter-number">05</div>
+    <div class="chapter-title">Entregables <em>finales.</em></div>
+
+    <div class="deliverables-grid">
+      <div class="deliverable">
+        <div class="deliverable-icon">SVG</div>
+        <div class="deliverable-title">Archivos vectoriales</div>
+        <ul class="deliverable-items">
+          <li>fabric-logo-dark.svg (con gradiente)</li>
+          <li>fabric-logo-light.svg (negro plano)</li>
+          <li>fabric-logo-white.svg (blanco puro)</li>
+          <li>fabric-logo-gold-flat.svg (dorado plano)</li>
+          <li>fabric-icon-f.svg (monograma F)</li>
+          <li>Todos en artboard limpio sin efectos externos</li>
+        </ul>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-icon">PNG</div>
+        <div class="deliverable-title">Archivos raster</div>
+        <ul class="deliverable-items">
+          <li>fabric-logo-dark.png (4000px, transparente)</li>
+          <li>fabric-logo-light.png (4000px, transparente)</li>
+          <li>favicon-32.png · favicon-64.png</li>
+          <li>favicon-512.png (para Apple Touch)</li>
+          <li>og-image.png (1200×630px)</li>
+          <li>email-signature.png (200px ancho)</li>
+        </ul>
+      </div>
+      <div class="deliverable">
+        <div class="deliverable-icon">Ai</div>
+        <div class="deliverable-title">Archivos fuente</div>
+        <ul class="deliverable-items">
+          <li>fabric-brandbook.ai (Illustrator)</li>
+          <li>fabric-brandbook.pdf (vectorial)</li>
+          <li>Archivos de fuente (.otf o .ttf)</li>
+          <li>Documento de licencia de tipografía</li>
+          <li>Guía de color (Pantone + CMYK + RGB + HEX)</li>
+          <li>Mockups de tarjeta de presentación</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 06 — USO CORRECTO E INCORRECTO -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="chapter">
+  <div class="page">
+    <div class="chapter-number">06</div>
+    <div class="chapter-title">Uso correcto <em>e incorrecto.</em></div>
+
+    <div class="dos-donts">
+
+      <!-- DO 1 -->
+      <div class="do-card">
+        <div class="dd-header">
+          <span class="dd-title">✓ Correcto — Logo sobre negro</span>
+        </div>
+        <div class="dd-body">
+          <div class="dd-example">
+            <div style="text-align: center;">
+              <span style="font-family: var(--serif); font-size: 56px; font-weight: 300; letter-spacing: 0.28em; padding-left: 0.28em; background: linear-gradient(160deg, #6B4F2A, #A07845, #C9A96E, #E8C878, #C9A96E, #A07845, #6B4F2A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; line-height: 1;">FABRIC</span>
+              <div style="font-family: var(--mono); font-size: 9px; letter-spacing: 0.4em; color: var(--text-3); text-transform: uppercase; margin-top: 12px; padding-left: 0.4em;">Oracle Critical Engineering</div>
+            </div>
+          </div>
+          <div class="dd-note">Logo con efecto metálico sobre fondo #000000 o #0A0A0A. Con tagline opcional en gris neutro.</div>
+        </div>
+      </div>
+
+      <!-- DON'T 1 -->
+      <div class="dont-card">
+        <div class="dd-header">
+          <span class="dd-title">✗ Incorrecto — Color equivocado</span>
+        </div>
+        <div class="dd-body">
+          <div class="dd-example" style="position: relative;">
+            <span class="wrong-x">✗</span>
+            <span class="wrong-1">FABRIC</span>
+          </div>
+          <div class="dd-note">Nunca usar azul, verde, rojo u otro color saturado. El único acento permitido es el dorado champagne y sus variantes metálicas.</div>
+        </div>
+      </div>
+
+      <!-- DO 2 -->
+      <div class="do-card">
+        <div class="dd-header">
+          <span class="dd-title">✓ Correcto — Logo sobre claro</span>
+        </div>
+        <div class="dd-body">
+          <div class="dd-example-light">
+            <div style="text-align: center;">
+              <span style="font-family: var(--serif); font-size: 56px; font-weight: 300; letter-spacing: 0.28em; padding-left: 0.28em; color: #0A0A0A; display: block; line-height: 1;">FABRIC</span>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.4em; color: #9A9690; text-transform: uppercase; margin-top: 12px; padding-left: 0.4em;">Oracle Critical Engineering</div>
+            </div>
+          </div>
+          <div class="dd-note">Logo negro #0A0A0A sobre fondo crema #F5F3EF. Para papelería, documentos y soportes editoriales claros.</div>
+        </div>
+      </div>
+
+      <!-- DON'T 2 -->
+      <div class="dont-card">
+        <div class="dd-header">
+          <span class="dd-title">✗ Incorrecto — Ícono de nube</span>
+        </div>
+        <div class="dd-body">
+          <div class="dd-example" style="position: relative;">
+            <span class="wrong-x">✗</span>
+            <div class="wrong-2">
+              <span class="wrong-icon">☁</span>
+              <span>FabricSoft</span>
+            </div>
+          </div>
+          <div class="dd-note">Sin iconografía literal de tecnología. Sin nube, código, circuito, engranaje. Sin el nombre "FabricSoft" — solo "FABRIC".</div>
+        </div>
+      </div>
+
+      <!-- DO 3 -->
+      <div class="do-card">
+        <div class="dd-header">
+          <span class="dd-title">✓ Correcto — Wordmark puro</span>
+        </div>
+        <div class="dd-body">
+          <div class="dd-example">
+            <span style="font-family: var(--serif); font-size: 72px; font-weight: 300; letter-spacing: 0.28em; padding-left: 0.28em; color: var(--gold); display: block; line-height: 1;">FABRIC</span>
+          </div>
+          <div class="dd-note">Wordmark sin tagline, dorado plano, sobre negro. Para contextos donde la categoría ya está establecida.</div>
+        </div>
+      </div>
+
+      <!-- DON'T 3 -->
+      <div class="dont-card">
+        <div class="dd-header">
+          <span class="dd-title">✗ Incorrecto — Tipografía genérica</span>
+        </div>
+        <div class="dd-body">
+          <div class="dd-example" style="position: relative;">
+            <span class="wrong-x">✗</span>
+            <span class="wrong-3">FABRIC</span>
+          </div>
+          <div class="dd-note">Sin Arial, Helvetica, Roboto, Inter, bold genérico. La tipografía debe ser elegida con intención y licenciada correctamente.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ÁREA DE RESPETO -->
+    <div style="background: var(--panel); border: 1px solid var(--border); padding: 48px; margin-top: 2px;">
+      <div class="label" style="color: var(--gold); margin-bottom: 24px;">Área de respeto — Clearspace</div>
+      <div style="display: flex; justify-content: center; align-items: center; padding: 48px; background: var(--black-deep); border: 1px dashed var(--border-2); position: relative; min-height: 200px; margin-bottom: 24px;">
+        <!-- Dashed clearspace indicators -->
+        <div style="position: absolute; inset: 24px; border: 1px dashed rgba(201,169,110,0.2); pointer-events: none;"></div>
+        <span style="font-family: var(--serif); font-size: 64px; font-weight: 300; letter-spacing: 0.28em; padding-left: 0.28em; color: var(--gold); line-height: 1; position: relative; z-index: 1;">FABRIC</span>
+        <div style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%); font-size: 9px; color: rgba(201,169,110,0.4); letter-spacing: 0.1em; text-transform: uppercase;">Clearspace = altura de la F</div>
+      </div>
+      <p style="font-size: 12px; color: var(--text-2); line-height: 1.8; max-width: 700px;">El área de respeto mínima alrededor del logo equivale a la altura de la letra F en cada lado. Nunca ubicar texto, imágenes u otros elementos dentro de esta zona. En impresión, verificar con bleed extendido.</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="chapter" style="padding: 0; border-bottom: none;">
+  <div class="page">
+    <div class="doc-footer">
+      <div>
+        <div class="footer-logo">FABRIC</div>
+        <div style="font-size: 10px; color: var(--text-3); margin-top: 8px; letter-spacing: 0.1em;">Oracle Critical Engineering · México · USA</div>
+      </div>
+      <div class="footer-meta">
+        Brand Book v1.0 · Mayo 2026<br>
+        Documento confidencial · Uso interno<br>
+        fabricsoft.com.mx
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

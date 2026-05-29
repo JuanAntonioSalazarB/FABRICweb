@@ -3,7 +3,6 @@ import { renderVerificationEmail } from "../templates/VerificationEmail";
 import { VerificationEmailData } from "../types/email.types";
 import { EmailService } from "./EmailService";
 
-
 export class AuthEmailService {
     static async sendVerificationEmail(data : VerificationEmailData) : Promise<void> {
         await EmailService.send({
@@ -12,7 +11,6 @@ export class AuthEmailService {
             subject: 'Confirma tu cuenta',
             text: renderVerificationEmail(data),
             html: renderVerificationEmail(data),
-
         })
     }
 }

@@ -11,6 +11,7 @@ export default function Admision() {
   const [wlScenario, setWlScenario] = useState('');
   const [wlError, setWlError] = useState('');
   const [wlSuccess, setWlSuccess] = useState(false);
+  const [wlLoading, setWlLoading] = useState(false);
 
   // Email validation helper
   const isCorporateEmail = (email: string) => {
@@ -33,18 +34,25 @@ export default function Admision() {
       return;
     }
 
-    const res = await submitWaitlistAction({
-      name: wlName,
-      email: wlEmail,
-      company: wlCompany,
-      role: wlRole,
-      scenario: wlScenario
-    });
+    setWlLoading(true);
+    try {
+      const res = await submitWaitlistAction({
+        name: wlName,
+        email: wlEmail,
+        company: wlCompany,
+        role: wlRole,
+        scenario: wlScenario
+      });
 
-    if (res.success) {
-      setWlSuccess(true);
-    } else {
+      if (res.success) {
+        setWlSuccess(true);
+      } else {
+        setWlError('Error al enviar la solicitud. Intente de nuevo.');
+      }
+    } catch (err) {
       setWlError('Error al enviar la solicitud. Intente de nuevo.');
+    } finally {
+      setWlLoading(false);
     }
   };
 
@@ -231,8 +239,8 @@ export default function Admision() {
                     </div>
                   )}
 
-                  <button type="submit" className="btn-primary-accent w-full justify-center !py-3">
-                    Enviar Solicitud de Admisión
+                  <button type="submit" disabled={wlLoading} className="btn-primary-accent w-full justify-center !py-3">
+                    {wlLoading ? 'Procesando...' : 'Enviar Solicitud de Admisión'}
                   </button>
                 </form>
               )}

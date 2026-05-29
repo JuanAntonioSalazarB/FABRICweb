@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
-import { ClerkProvider } from '@clerk/nextjs';
 import Script from 'next/script';
 import "./globals.css";
 
@@ -21,7 +20,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fabriconsulting.com.mx"),
+  metadataBase: new URL("https://fabricsoft.com.mx"),
   title: {
     default: "FABRIC · Oracle Critical Engineering",
     template: "%s | FABRIC"
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_MX",
-    url: "https://fabriconsulting.com.mx",
+    url: "https://fabricsoft.com.mx",
     title: "FABRIC · Oracle Critical Engineering",
     description: "Boutique de ingeniería premium especializada en la implementación, remediación y estabilización de Oracle Fusion Cloud en LATAM.",
     siteName: "FABRIC",
@@ -69,7 +68,7 @@ export const metadata: Metadata = {
     images: ["/img/logo.png"],
   },
   alternates: {
-    canonical: "https://fabriconsulting.com.mx",
+    canonical: "https://fabricsoft.com.mx",
   }
 };
 
@@ -79,36 +78,54 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html
-        lang="es"
-        className={`${inter.variable} ${cormorant.variable} ${jetbrains.variable} h-full antialiased`}
-      >
-        <head>
-          {/* Initialize Google Translate */}
-          <Script id="google-translate-init" strategy="beforeInteractive">
-            {`
-              function googleTranslateElementInit() {
-                new google.translate.TranslateElement({
-                  pageLanguage: 'es',
-                  includedLanguages: 'es,en',
-                  layout: typeof window !== 'undefined' && window.google ? google.translate.TranslateElement.InlineLayout.SIMPLE : 0,
-                  autoDisplay: false
-                }, 'google_translate_element');
+    <html
+      lang="es"
+      className={`${inter.variable} ${cormorant.variable} ${jetbrains.variable} h-full antialiased`}
+    >
+      <head />
+      <body className="min-h-full flex flex-col bg-black text-white selection:bg-accent selection:text-black">
+        {/* Moment 0 Preloader */}
+        <div id="global-preloader" style={{ position: 'fixed', inset: '0', background: '#0A0A0A', zIndex: '99999', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transition: 'opacity 0.4s ease', pointerEvents: 'all' }}>
+          <div style={{ width: '40px', height: '40px', border: '2px solid rgba(201, 169, 110, 0.1)', borderTop: '2px solid #C9A96E', borderRadius: '50%', animation: 'spin 1s linear infinite', marginBottom: '20px' }}></div>
+          <div style={{ fontFamily: 'monospace', fontSize: '10px', letterSpacing: '0.3em', color: '#C9A96E', textTransform: 'uppercase', animation: 'pulse-opacity-preloader 1.5s ease-in-out infinite' }}>FABRIC</div>
+          <style dangerouslySetInnerHTML={{ __html: `
+            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            @keyframes pulse-opacity-preloader { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+          `}} />
+        </div>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function() {
+            function removeLoader() {
+              var loader = document.getElementById('global-preloader');
+              if (loader) {
+                loader.style.opacity = '0';
+                loader.style.pointerEvents = 'none';
+                setTimeout(function() {
+                  if (loader && loader.parentNode) {
+                    loader.parentNode.removeChild(loader);
+                  }
+                }, 400);
               }
-            `}
-          </Script>
-          <Script 
-            src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" 
-            strategy="afterInteractive" 
-          />
-        </head>
-        <body className="min-h-full flex flex-col bg-black text-white selection:bg-accent selection:text-black">
-          {/* Hidden Google Translate container */}
-          <div id="google_translate_element" style={{ display: 'none' }}></div>
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+            }
+            window.addEventListener('load', removeLoader);
+            // Fallback if load event already fired
+            if (document.readyState === 'complete') {
+              removeLoader();
+            }
+
+            // Register Service Worker for repeat visit speed
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').catch(function(err) {
+                  console.warn('SW registration failed:', err);
+                });
+              });
+            }
+          })();
+        `}} />
+
+        {children}
+      </body>
+    </html>
   );
 }

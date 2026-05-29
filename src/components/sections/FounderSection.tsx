@@ -13,13 +13,12 @@ export default function FounderSection() {
           <div className="card-premium aspect-[3/4] relative overflow-hidden">
             <div className="absolute inset-4 border border-[rgba(201,169,110,0.2)] z-10 pointer-events-none" />
 
-            <Image
+             <Image
               src="/img/julio-alvarez.jpeg"
               alt="Julio Alvarez"
               fill
-              className="object-cover"
+              className="object-cover grayscale contrast-[1.1] brightness-[0.95]"
               sizes="(max-width: 768px) 100vw, 320px"
-              priority
             />
           </div>
 
@@ -29,7 +28,7 @@ export default function FounderSection() {
               Founder
             </span>
 
-            <h2 className="text-4xl md:text-6xl font-serif font-light text-white leading-none mb-3">
+            <h2 className="text-4xl md:text-6xl font-serif font-light text-accent leading-none mb-3 drop-shadow-[0_2px_15px_rgba(201,169,110,0.6)]">
               Julio Alvarez
             </h2>
 

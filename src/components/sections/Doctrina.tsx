@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface DoctrinaProps {
-  setActiveOverlayModal: (modal: 'erp' | 'cloud' | 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
+  setActiveOverlayModal: (modal: 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
 }
 
 export default function Doctrina({ setActiveOverlayModal }: DoctrinaProps) {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface CasosProps {
-  setActiveOverlayModal: (modal: 'erp' | 'cloud' | 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
+  setActiveOverlayModal: (modal: 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null) => void;
 }
 
 export default function Casos({ setActiveOverlayModal }: CasosProps) {

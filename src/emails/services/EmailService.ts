@@ -1,10 +1,14 @@
 import { Resend } from 'resend';
 import { EmailOptions } from '../types/email.types';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export class EmailService {
   static async send(options: EmailOptions): Promise<void> {
+    if (!resend) {
+      console.warn('Resend API Key is missing. Mocking email send:', options);
+      return;
+    }
     try {
       const { data, error } = await resend.emails.send({
         from: options.from,

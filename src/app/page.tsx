@@ -4,40 +4,43 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { FileText, X, Globe } from 'lucide-react';
 import { submitEvidenceRequestAction } from '@/app/actions/leads';
+import dynamic from 'next/dynamic';
+import LazySection from '@/components/layout/LazySection';
+import ClientTranslator from '@/components/layout/ClientTranslator';
 
-// Modal and wizard views
-import ErpTcoCalculatorView from '@/components/modals/ErpTcoCalculatorView';
-import CloudCostCalculatorView from '@/components/modals/CloudCostCalculatorView';
-import DiagnosticoWizardView from '@/components/modals/DiagnosticoWizardView';
-import OfficeHoursView from '@/components/modals/OfficeHoursView';
-import CasoApePlazasView from '@/components/modals/CasoApePlazasView';
-import CasoAplazoView from '@/components/modals/CasoAplazoView';
-import DoctrinaView from '@/components/modals/DoctrinaView';
-import TransparenciaView from '@/components/modals/TransparenciaView';
-
-
-// Section components
+// Static components above-the-fold
 import Hero from '@/components/sections/Hero';
-import Comparadores from '@/components/sections/Comparadores';
-import Terminal from '@/components/sections/Terminal';
-import Doctrina from '@/components/sections/Doctrina';
-import Casos from '@/components/sections/Casos';
-import Industrias from '@/components/sections/Industrias';
-import FabricOS from '@/components/sections/FabricOS';
-import Lifecycle from '@/components/sections/Lifecycle';
-import Referencias from '@/components/sections/Referencias';
-import Transparencia from '@/components/sections/Transparencia';
-import Investigacion from '@/components/sections/Investigacion';
-import DoctrinaFiltrado from '@/components/sections/DoctrinaFiltrado';
-import Admision from '@/components/sections/Admision';
-import Footer from '@/components/layout/Footer';
-import FounderSection from '@/components/sections/FounderSection';
-import PuenteSection from '@/components/sections/PuenteSection';
-import DoctrineGenerator from '@/components/sections/DoctrineGenerator';
-import ApplyReverse from '@/components/sections/ApplyReverse';
-import AuditTrailSection from '@/components/sections/AuditTrailSection';
-import AgendaCita from '@/components/sections/AgendaCita';
-import ScrollFomoDivider from '@/components/layout/ScrollFomoDivider';
+
+// Dynamic Modal and wizard views (Client-side only)
+const DiagnosticoWizardView = dynamic(() => import('@/components/modals/DiagnosticoWizardView'), { ssr: false });
+const OfficeHoursView = dynamic(() => import('@/components/modals/OfficeHoursView'), { ssr: false });
+const CasoApePlazasView = dynamic(() => import('@/components/modals/CasoApePlazasView'), { ssr: false });
+const CasoAplazoView = dynamic(() => import('@/components/modals/CasoAplazoView'), { ssr: false });
+const DoctrinaView = dynamic(() => import('@/components/modals/DoctrinaView'), { ssr: false });
+const TransparenciaView = dynamic(() => import('@/components/modals/TransparenciaView'), { ssr: false });
+
+// Dynamic Section components
+const Comparadores = dynamic(() => import('@/components/sections/Comparadores'));
+const Terminal = dynamic(() => import('@/components/sections/Terminal'), { ssr: false });
+const Doctrina = dynamic(() => import('@/components/sections/Doctrina'));
+const Casos = dynamic(() => import('@/components/sections/Casos'));
+const Industrias = dynamic(() => import('@/components/sections/Industrias'));
+const FabricOS = dynamic(() => import('@/components/sections/FabricOS'));
+const Lifecycle = dynamic(() => import('@/components/sections/Lifecycle'));
+const Referencias = dynamic(() => import('@/components/sections/Referencias'));
+const Transparencia = dynamic(() => import('@/components/sections/Transparencia'));
+const Investigacion = dynamic(() => import('@/components/sections/Investigacion'));
+const DoctrinaFiltrado = dynamic(() => import('@/components/sections/DoctrinaFiltrado'));
+const Admision = dynamic(() => import('@/components/sections/Admision'));
+const Footer = dynamic(() => import('@/components/layout/Footer'));
+const FounderSection = dynamic(() => import('@/components/sections/FounderSection'));
+const PuenteSection = dynamic(() => import('@/components/sections/PuenteSection'));
+const DoctrineGenerator = dynamic(() => import('@/components/sections/DoctrineGenerator'));
+const ApplyReverse = dynamic(() => import('@/components/sections/ApplyReverse'));
+const AuditTrailSection = dynamic(() => import('@/components/sections/AuditTrailSection'));
+const AgendaCita = dynamic(() => import('@/components/sections/AgendaCita'));
+const ScrollFomoDivider = dynamic(() => import('@/components/layout/ScrollFomoDivider'));
+
 
 const PAPER_DETAILS: Record<string, { badge: string; outline: string }> = {
   'Por qué fallan los go-live de Oracle Fusion': {
@@ -194,43 +197,22 @@ export default function Home() {
   const [gatedLoading, setGatedLoading] = useState(false);
 
   // Overlay Modal state
-  const [activeOverlayModal, setActiveOverlayModal] = useState<'erp' | 'cloud' | 'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null>(null);
+  const [activeOverlayModal, setActiveOverlayModal] = useState<'diagnostico' | 'office-hours' | 'ape-plazas' | 'aplazo' | 'doctrina' | 'transparencia' | null>(null);
 
   // Language translation state (Spanish <-> English)
   const [currentLang, setCurrentLang] = useState<'es' | 'en'>('es');
 
   useEffect(() => {
-    const checkLang = () => {
-      const match = document.cookie.match(/googtrans=([^;]+)/);
-      if (match && match[1].includes('/en')) {
-        setCurrentLang('en');
-      } else {
-        setCurrentLang('es');
-      }
-    };
-    checkLang();
+    const savedLang = localStorage.getItem('fabric-lang');
+    if (savedLang === 'en' || savedLang === 'es') {
+      setCurrentLang(savedLang);
+    }
   }, []);
 
   const toggleLanguage = () => {
     const nextLang = currentLang === 'es' ? 'en' : 'es';
-    const domain = window.location.hostname === 'localhost' ? '' : `; domain=.${window.location.hostname.replace(/^www\./, '')}`;
-    
-    if (nextLang === 'es') {
-      // Clear cookie to restore default page language (Spanish)
-      document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
-      if (window.location.hostname !== 'localhost') {
-        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domain}`;
-      }
-    } else {
-      // Set to English
-      document.cookie = 'googtrans=/es/en; path=/';
-      document.cookie = `googtrans=/es/en; path=/; domain=${window.location.hostname}`;
-      if (window.location.hostname !== 'localhost') {
-        document.cookie = `googtrans=/es/en; path=/${domain}`;
-      }
-    }
-    window.location.reload();
+    setCurrentLang(nextLang);
+    localStorage.setItem('fabric-lang', nextLang);
   };
 
   const sections = [
@@ -297,7 +279,7 @@ export default function Home() {
     window.scrollTo(0, 0);
   }, []);
 
-  // Intersection Observer for scroll reveal animations
+  // Intersection Observer for scroll reveal animations with MutationObserver for dynamic nodes
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -309,15 +291,38 @@ export default function Home() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
+    // Observe existing elements
     const revealElements = document.querySelectorAll('.reveal-on-scroll');
     revealElements.forEach((el) => observer.observe(el));
 
+    // Watch for dynamically added elements (lazy loaded sections)
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node instanceof HTMLElement) {
+            if (node.classList.contains('reveal-on-scroll')) {
+              observer.observe(node);
+            }
+            const children = node.querySelectorAll('.reveal-on-scroll');
+            children.forEach((child) => observer.observe(child));
+          }
+        });
+      });
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
     return () => {
-      revealElements.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
+      mutationObserver.disconnect();
     };
   }, []);
 
@@ -472,11 +477,12 @@ export default function Home() {
           
           <div className="flex items-center gap-12 md:gap-16">
             <Link href="/" className="nav-logo-link">
-              <img 
-                src="/img/logo.png" 
-                alt="FabricSoft Logo" 
-                className={`w-auto object-contain transition-all duration-300 ${isScrolled ? 'h-[24px] md:h-[30px]' : 'h-[36px] md:h-[44px]'}`}
-              />
+              <span className={`brand-logo-wordmark animate-logo-wordmark transition-all duration-300 ${isScrolled ? 'text-lg md:text-xl' : 'text-2xl md:text-3xl'}`}>
+                FABRIC
+              </span>
+              <span className={`brand-logo-tagline animate-logo-tagline tracking-[0.4em] pl-[0.4em] transition-all duration-300 ${isScrolled ? 'text-[5px] md:text-[6px] mt-0.5' : 'text-[7px] md:text-[8px] mt-1.5'}`}>
+                Oracle Critical Engineering
+              </span>
             </Link>
           </div>
 
@@ -509,52 +515,101 @@ export default function Home() {
 
       {/* Page Sections */}
       <Hero setActiveOverlayModal={setActiveOverlayModal} />
-      <PuenteSection />
       
-      <ScrollFomoDivider label="COMPARAR COSTOS: AWS/AZURE APLICAN MULTIPLICADORES OCULTOS HASTA 10X DEBAJO" targetId="comparadores" />
-      <Comparadores setActiveOverlayModal={setActiveOverlayModal} />
+      <LazySection minHeight="400px">
+        <PuenteSection />
+      </LazySection>
       
-      <AgendaCita setActiveOverlayModal={setActiveOverlayModal} />
+      <LazySection minHeight="80px">
+        <ScrollFomoDivider label="COMPARAR COSTOS: AWS/AZURE APLICAN MULTIPLICADORES OCULTOS HASTA 10X DEBAJO" targetId="comparadores" />
+      </LazySection>
+      <LazySection minHeight="500px">
+        <Comparadores />
+      </LazySection>
       
-      <ScrollFomoDivider label="CONSULTORÍA DE RIESGO CON IA: SIMULA TUS INTEGRACIONES EN TIEMPO REAL DEBAJO" targetId="terminal" />
-      <Terminal />
+      <LazySection minHeight="400px">
+        <AgendaCita setActiveOverlayModal={setActiveOverlayModal} />
+      </LazySection>
       
-      <Doctrina setActiveOverlayModal={setActiveOverlayModal} />
-      <DoctrineGenerator />
+      <LazySection minHeight="80px">
+        <ScrollFomoDivider label="CONSULTORÍA DE RIESGO CON IA: SIMULA TUS INTEGRACIONES EN TIEMPO REAL DEBAJO" targetId="terminal" />
+      </LazySection>
+      <LazySection minHeight="600px">
+        <Terminal />
+      </LazySection>
       
-      <ScrollFomoDivider label="PRUEBAS DE INGENIERÍA: ACCEDE AL EXPEDIENTE DE AUDITORÍA CONTRACTUAL DEBAJO" targetId="casos" />
-      <Casos setActiveOverlayModal={setActiveOverlayModal} />
-      <AuditTrailSection />
+      <LazySection minHeight="500px">
+        <Doctrina setActiveOverlayModal={setActiveOverlayModal} />
+      </LazySection>
+      <LazySection minHeight="500px">
+        <DoctrineGenerator />
+      </LazySection>
       
-      <Industrias />
-      <FabricOS />
-      <Lifecycle />
-      <Referencias setActiveOverlayModal={setActiveOverlayModal} />
-      <Transparencia setActiveOverlayModal={setActiveOverlayModal} />
-      <FounderSection />
-      <Investigacion setActivePaper={setActivePaper} />
-      <DoctrinaFiltrado />
+      <LazySection minHeight="80px">
+        <ScrollFomoDivider label="PRUEBAS DE INGENIERÍA: ACCEDE AL EXPEDIENTE DE AUDITORÍA CONTRACTUAL DEBAJO" targetId="casos" />
+      </LazySection>
+      <LazySection minHeight="500px">
+        <Casos setActiveOverlayModal={setActiveOverlayModal} />
+      </LazySection>
+      <LazySection minHeight="600px">
+        <AuditTrailSection />
+      </LazySection>
       
-      <ScrollFomoDivider label="REGISTRO DE RECHAZADOS: MIRA POR QUÉ RECHAZAMOS EVALUACIONES DE USD 80M DE REVENUE DEBAJO" targetId="apply-reverse" />
-      <ApplyReverse />
+      <LazySection minHeight="400px">
+        <Industrias />
+      </LazySection>
+      <LazySection minHeight="500px">
+        <FabricOS />
+      </LazySection>
+      <LazySection minHeight="500px">
+        <Lifecycle />
+      </LazySection>
+      <LazySection minHeight="500px">
+        <Referencias setActiveOverlayModal={setActiveOverlayModal} />
+      </LazySection>
+      <LazySection minHeight="600px">
+        <Transparencia setActiveOverlayModal={setActiveOverlayModal} />
+      </LazySection>
+      <LazySection minHeight="400px">
+        <FounderSection />
+      </LazySection>
+      <LazySection minHeight="500px">
+        <Investigacion setActivePaper={setActivePaper} />
+      </LazySection>
+      <LazySection minHeight="400px">
+        <DoctrinaFiltrado />
+      </LazySection>
       
-      <ScrollFomoDivider label="RADAR DE ADMISIÓN: SÓLO 1 SLOT DISPONIBLE PARA Q3. REGISTRA TU INICIATIVA DEBAJO" targetId="admision" />
-      <Admision />
+      <LazySection minHeight="80px">
+        <ScrollFomoDivider label="REGISTRO DE RECHAZADOS: MIRA POR QUÉ RECHAZAMOS EVALUACIONES DE USD 80M DE REVENUE DEBAJO" targetId="apply-reverse" />
+      </LazySection>
+      <LazySection minHeight="500px">
+        <ApplyReverse />
+      </LazySection>
+      
+      <LazySection minHeight="80px">
+        <ScrollFomoDivider label="RADAR DE ADMISIÓN: SÓLO 1 SLOT DISPONIBLE PARA Q3. REGISTRA TU INICIATIVA DEBAJO" targetId="admision" />
+      </LazySection>
+      <LazySection minHeight="600px">
+        <Admision />
+      </LazySection>
 
       {/* Footer */}
-      <Footer />
+      <LazySection minHeight="300px">
+        <Footer />
+      </LazySection>
 
       {/* Gated Research Paper Modal */}
       {activePaper && (
         <div className="fixed inset-0 z-[2000] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-zinc-950 border border-accent p-6 md:p-8 max-w-3xl w-full relative space-y-6 font-mono text-xs text-zinc-400 shadow-[0_0_35px_rgba(201,169,110,0.18)]">
+          <div className="liquid-glass-gold max-w-md w-full relative space-y-6 font-mono text-xs text-zinc-400 p-6 md:p-8">
             
             {/* Esquinas decorativas de la consola */}
             <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-accent/40" />
             <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-accent/40" />
             <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-accent/40" />
             <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-accent/40" />
-
+ 
             <button 
               onClick={() => setActivePaper(null)} 
               className="absolute top-4 right-4 text-zinc-500 hover:text-accent cursor-pointer bg-black border border-zinc-900 hover:border-accent px-2.5 py-1 z-10 transition-colors font-mono text-[9px] uppercase tracking-wider"
@@ -562,116 +617,101 @@ export default function Home() {
               [CERRAR X]
             </button>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start pt-2">
-              {/* Left Column: Outline Details */}
-              <div className="space-y-3">
-                <span className="badge-premium mb-1 inline-block text-[10px]">
+            <div className="space-y-6 pt-8 md:pt-2">
+              <div className="text-center space-y-2">
+                <FileText className="w-12 h-12 text-accent mx-auto animate-pulse mb-2" />
+                <span className="badge-premium inline-block text-[10px]">
                   {PAPER_DETAILS[activePaper]?.badge || 'WHITE PAPER'}
                 </span>
                 <h3 className="text-base font-serif text-white font-light leading-tight">
                   {activePaper}
                 </h3>
-                {PAPER_DETAILS[activePaper] ? (
-                  <pre className="bg-black border border-zinc-900 p-4 rounded overflow-y-auto max-h-[320px] font-mono text-[9px] text-zinc-400 leading-relaxed whitespace-pre-wrap select-text custom-scrollbar">
-                    {PAPER_DETAILS[activePaper].outline}
-                  </pre>
-                ) : (
-                  <div className="bg-black border border-zinc-900 p-4 rounded text-zinc-600 text-center py-12">
-                    Cargando estructura...
-                  </div>
-                )}
+                <p className="text-[10px] text-zinc-500 leading-normal">
+                  Para acceder a la versión completa del paper en formato PDF de alta resolución, valide su credencial profesional.
+                </p>
               </div>
-
-              {/* Right Column: Download Form */}
-              <div className="space-y-6 md:pt-8">
-                <div className="text-center space-y-2">
-                  <FileText className="w-12 h-12 text-accent mx-auto animate-pulse" />
-                  <h4 className="text-sm font-serif text-zinc-300 font-light">Solicitud de Acceso Gated</h4>
-                  <p className="text-[10px] text-zinc-500 leading-normal">
-                    Para acceder a la versión completa del paper en formato PDF de alta resolución, valide su credencial profesional.
-                  </p>
+ 
+              {gatedSuccess ? (
+                <div className="p-6 bg-emerald-950/10 border border-emerald-500/20 text-center text-emerald-500 rounded-lg font-sans text-xs">
+                  ✓ Solicitud procesada. Verifique su bandeja de entrada corporativa.
                 </div>
-
-                {gatedSuccess ? (
-                  <div className="p-4 bg-emerald-950/20 border border-emerald-500/30 text-center text-emerald-500 rounded font-sans text-xs">
-                    ✓ Solicitud procesada. Verifique su bandeja de entrada corporativa.
+              ) : (
+                <form onSubmit={handleGatedSubmit} className="space-y-4 text-left">
+                  <div>
+                    <label className="text-zinc-500 block mb-1 text-[9px] uppercase tracking-widest font-mono font-medium">Nombre Completo *</label>
+                    <input
+                      type="text"
+                      required
+                      value={gatedName}
+                      onChange={(e) => setGatedName(e.target.value)}
+                      placeholder="Ej. Roberto Martínez"
+                      className="w-full bg-zinc-950/50 border border-zinc-900 text-zinc-100 placeholder-zinc-700 rounded-md py-2.5 px-3.5 outline-none focus:border-accent/60 focus:bg-zinc-950/80 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-xs font-sans"
+                    />
                   </div>
-                ) : (
-                  <form onSubmit={handleGatedSubmit} className="space-y-3">
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-zinc-500 block mb-1 text-[10px] uppercase">Nombre Completo *</label>
-                      <input
-                        type="text"
-                        required
-                        value={gatedName}
-                        onChange={(e) => setGatedName(e.target.value)}
-                        placeholder="Ej. Roberto Martínez"
-                        className="w-full bg-black border border-zinc-800 text-white p-2.5 outline-none focus:border-accent text-xs font-mono"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="text-zinc-500 block mb-1 text-[10px] uppercase">Empresa *</label>
+                      <label className="text-zinc-500 block mb-1 text-[9px] uppercase tracking-widest font-mono font-medium">Empresa *</label>
                       <input
                         type="text"
                         required
                         value={gatedCompany}
                         onChange={(e) => setGatedCompany(e.target.value)}
                         placeholder="Ej. Banco del Norte S.A."
-                        className="w-full bg-black border border-zinc-800 text-white p-2.5 outline-none focus:border-accent text-xs font-mono"
+                        className="w-full bg-zinc-950/50 border border-zinc-900 text-zinc-100 placeholder-zinc-700 rounded-md py-2.5 px-3.5 outline-none focus:border-accent/60 focus:bg-zinc-950/80 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-xs font-sans"
                       />
                     </div>
-
+ 
                     <div>
-                      <label className="text-zinc-500 block mb-1 text-[10px] uppercase">Cargo / Puesto *</label>
+                      <label className="text-zinc-500 block mb-1 text-[9px] uppercase tracking-widest font-mono font-medium">Cargo / Puesto *</label>
                       <input
                         type="text"
                         required
                         value={gatedRole}
                         onChange={(e) => setGatedRole(e.target.value)}
-                        placeholder="Ej. CIO / Director de Finanzas"
-                        className="w-full bg-black border border-zinc-800 text-white p-2.5 outline-none focus:border-accent text-xs font-mono"
+                        placeholder="Ej. CIO / CFO"
+                        className="w-full bg-zinc-950/50 border border-zinc-900 text-zinc-100 placeholder-zinc-700 rounded-md py-2.5 px-3.5 outline-none focus:border-accent/60 focus:bg-zinc-950/80 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-xs font-sans"
                       />
                     </div>
-
-                    <div>
-                      <label className="text-zinc-500 block mb-1 text-[10px] uppercase">Correo Corporativo *</label>
-                      <input
-                        type="email"
-                        required
-                        value={gatedEmail}
-                        onChange={(e) => setGatedEmail(e.target.value)}
-                        placeholder="nombre@empresa.com"
-                        className="w-full bg-black border border-zinc-800 text-white p-2.5 outline-none focus:border-accent text-xs font-mono"
-                      />
-                      {gatedError && (
-                        <span className="text-red-500 text-[10px] block mt-1">{gatedError}</span>
-                      )}
-                    </div>
-                    
-                    <button 
-                      type="submit" 
-                      disabled={gatedLoading}
-                      className="btn-primary-accent w-full justify-center text-xs py-2.5 font-bold uppercase mt-2"
-                    >
-                      {gatedLoading ? 'Procesando...' : 'Solicitar Enlace de Descarga'}
-                    </button>
-                  </form>
-                )}
-
-                <p className="text-[9px] text-zinc-600 text-center leading-normal">
-                  Los FSO (Objetos de Solución) y metodologías técnicas son propiedad de FABRIC. Se requiere un correo corporativo verificable.
-                </p>
-              </div>
+                  </div>
+ 
+                  <div>
+                    <label className="text-zinc-500 block mb-1 text-[9px] uppercase tracking-widest font-mono font-medium">Correo Corporativo *</label>
+                    <input
+                      type="email"
+                      required
+                      value={gatedEmail}
+                      onChange={(e) => setGatedEmail(e.target.value)}
+                      placeholder="nombre@empresa.com"
+                      className="w-full bg-zinc-950/50 border border-zinc-900 text-zinc-100 placeholder-zinc-700 rounded-md py-2.5 px-3.5 outline-none focus:border-accent/60 focus:bg-zinc-950/80 focus:ring-1 focus:ring-accent/20 transition-all duration-300 text-xs font-sans"
+                    />
+                    {gatedError && (
+                      <span className="text-red-500 text-[10px] block mt-1.5 font-mono">{gatedError}</span>
+                    )}
+                  </div>
+                  
+                  <button 
+                    type="submit" 
+                    disabled={gatedLoading}
+                    className="btn-primary-accent w-full justify-center text-xs py-3 font-semibold uppercase mt-3 rounded-md transition-all duration-300 hover:shadow-[0_0_15px_rgba(201,169,110,0.15)] shrink-0 cursor-pointer"
+                  >
+                    {gatedLoading ? 'Procesando...' : 'Solicitar Enlace de Descarga'}
+                  </button>
+                </form>
+              )}
+ 
+              <p className="text-[9px] text-zinc-600 text-center leading-normal">
+                Los FSO (Objetos de Solución) y metodologías técnicas son propiedad de FABRIC. Se requiere un correo corporativo verificable.
+              </p>
             </div>
           </div>
         </div>
       )}
-
+ 
       {/* Dynamic Overlay Modal Widget */}
       {activeOverlayModal && (
         <div className="fixed inset-0 z-[1500] bg-black/90 backdrop-blur-md flex items-start justify-center p-4 overflow-y-auto pt-24 pb-12">
-          <div className="bg-zinc-950 border border-accent p-6 md:p-10 max-w-4xl w-full relative">
+          <div className="liquid-glass-gold p-6 md:p-10 max-w-4xl w-full relative">
             <button 
               type="button"
               onClick={() => setActiveOverlayModal(null)} 
@@ -680,9 +720,7 @@ export default function Home() {
               [CERRAR X]
             </button>
             
-            <div className="mt-4">
-              {activeOverlayModal === 'erp' && <ErpTcoCalculatorView />}
-              {activeOverlayModal === 'cloud' && <CloudCostCalculatorView />}
+            <div className="mt-10 md:mt-4">
               {activeOverlayModal === 'diagnostico' && (
                 <DiagnosticoWizardView onBookingLinkClick={() => setActiveOverlayModal('office-hours')} />
               )}
@@ -695,6 +733,8 @@ export default function Home() {
           </div>
         </div>
       )}
+      {/* Local Client Translator Utility */}
+      <ClientTranslator lang={currentLang} />
     </>
   );
 }
